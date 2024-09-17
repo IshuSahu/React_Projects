@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Register.scss";
 
 function RegisterPage() {
@@ -10,20 +11,44 @@ function RegisterPage() {
     confirmpassword: "",
     profileimg: null,
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData({
       ...formData,
-
       [name]: name === "profileimg" ? files[0] : value,
     });
   };
-  
 
-  const handleSubmit = (e) => {
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  useEffect(() => {
+    setPasswordMatch(
+      formData.password === formData.confirmpassword ||
+        formData.confirmpassword === ""
+    );
+  }, [formData.password, formData.confirmpassword]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // For testing, you can handle form submission here
+
+    try {
+      const register_form = new FormData();
+      for (const key in formData) {
+        register_form.append(key, formData[key]);
+      }
+
+      const response = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        body: register_form,
+      });
+
+      if (response.ok) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log("Registration Failed! ", error.message);
+    }
   };
 
   return (
@@ -41,9 +66,9 @@ function RegisterPage() {
           <input
             type="text"
             placeholder="Last name"
+            name="lastname"
             value={formData.lastname}
             onChange={handleChange}
-            name="lastname"
             required
           />
           <input
@@ -70,6 +95,9 @@ function RegisterPage() {
             onChange={handleChange}
             required
           />
+          {!passwordMatch && (
+            <p style={{ color: "red" }}>Passwords not match!</p>
+          )}
           <input
             id="image"
             type="file"
@@ -79,18 +107,20 @@ function RegisterPage() {
             required
             style={{ display: "none" }}
           />
-          {/* Label to trigger file input */}
           <label htmlFor="image">
             <img src="/assets/addImage.png" alt="add profile image" />
             <p>Upload Profile photo</p>
           </label>
-          {formData.profileimg &&(
-            <img src={URL.createObjectURL(formData.profileimg)}
-            alt="Profile photo"
-            style={{maxWidth: '80px'}}
+          {formData.profileimg && (
+            <img
+              src={URL.createObjectURL(formData.profileimg)}
+              alt="Profile photo"
+              style={{ maxWidth: "80px" }}
             />
           )}
-          <button type="submit">REGISTER</button>
+          <button type="submit" disabled={!passwordMatch}>
+            REGISTER
+          </button>
         </form>
         <p>
           Already have an account? <a href="/login">Login here</a>

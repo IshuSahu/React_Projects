@@ -1,18 +1,27 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
+require('dotenv').config();
 const cors = require("cors");
+const authRoutes = require('./routes/auth')
 
 app.use(cors());
 app.use(express.json());
 app.use("/public", express.static("public"));
+app.use(express.urlencoded({ extended: true }));  // For parsing application/x-www-form-urlencoded
+
+// Routes
+app.use('/auth',authRoutes)
+
+
+
+
 
 /* MONGOOSE SETUP */
 const PORT = 3000;
 mongoose
   .connect(process.env.MONGO_URL, {
-    dbName: "Dream_Nest",
+    dbName: "Rent_It",
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
