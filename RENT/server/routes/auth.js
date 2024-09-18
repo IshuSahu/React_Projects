@@ -10,12 +10,10 @@ const { deepEqual } = require("assert");
 // Configuration of multer for file upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/uploads/"); // Store upload file in uploads folder
+    cb(null, "public/uploads/"); // Store uploaded files in the 'uploads' folder
   },
   filename: function (req, file, cb) {
-    // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1E9);
-    // const fileExtension = path.extname(file.originalname);
-    cb(null, file.fieldname);
+    cb(null, file.originalname); // Use the original file name
   },
 });
 const upload = multer({ storage });
@@ -67,35 +65,34 @@ router.post("/register", upload.single("profileimg"), async (req, res) => {
   }
 });
 
+// Login API
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body; // Destructure correctly
+    const { email, password } = req.body;
 
-    // Check if user exists in the database
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User does not exist" });
     }
 
-    // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" }); // Return error for invalid password
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Generate JWT token
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
-    // Exclude password from the returned user object
-    const userWithoutPassword = { ...user._doc };
-    delete userWithoutPassword.password;
+    // Remove password from user object
+    const { password: _, ...userWithoutPassword } = user._doc;
 
+    // Respond with user details and token
     res.status(200).json({ token, user: userWithoutPassword });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 });
-
 
 module.exports = router;
