@@ -2,11 +2,15 @@ const mongoose = require("mongoose")
 
 const ListingSchema = new mongoose.Schema(
   {
-    userID: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'User',
-        type: String,
-        require: true
+    // userID: {
+    // //   type: mongoose.Schema.Types.ObjectId,
+    // //   ref: 'User',
+    //     type: String,
+    //     require: true
+    // },
+    creator: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
     category: {
       type: String,
