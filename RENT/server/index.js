@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const listingRoutes = require('./routes/listing.js')
 const mongoose = require("mongoose");
 require('dotenv').config();
 const cors = require("cors");
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));  // For parsing application/x-w
 
 // Routes
 app.use('/auth',authRoutes)
+app.use('/properties', listingRoutes)
 
 
 

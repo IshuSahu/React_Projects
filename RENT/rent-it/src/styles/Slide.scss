@@ -5,10 +5,19 @@
     url("/assets/slide.jpg");
   background-position: center top;
   background-size: cover;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   h1 {
-    padding: 40px 20px;
-    font-size: 40px;
+    padding: 14px 20px;
+    font-size: 80px;
+    text-align: center;
+    color: white;
+  }
+  p {
+    padding: 4px 20px;
+    font-size: 30px;
     text-align: center;
     color: white;
   }
