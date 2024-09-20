@@ -54,29 +54,32 @@ const Listings = () => {
         ))}
       </div>
 
-      {/* {loading ? (
+      {loading ? (
         <Loader />
       ) : (
         <div className="listings">
           {listings.map(
             ({
+              
               _id,
               creator,
               listingPhotoPaths,
               city,
-              province,
+              pincode,
               country,
               category,
               type,
               price,
               booking=false
-            }) => (
+            },index) => (
+              // passing props
+              
               <ListingCard
                 listingId={_id}
                 creator={creator}
                 listingPhotoPaths={listingPhotoPaths}
                 city={city}
-                province={province}
+                pincode={pincode}
                 country={country}
                 category={category}
                 type={type}
@@ -86,7 +89,7 @@ const Listings = () => {
             )
           )}
         </div>
-      )} */}
+      )}
     </>
   );
 };

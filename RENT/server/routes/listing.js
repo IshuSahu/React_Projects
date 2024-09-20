@@ -21,7 +21,7 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
   try {
     /* Take the information from the form */
     const {
-      creatorId,
+      creator,
       category,
       type,
       streetAddress,
@@ -50,7 +50,7 @@ router.post("/create", upload.array("listingPhotos"), async (req, res) => {
     const listingPhotoPaths = listingPhotos.map((file) => file.path)
 
     const newListing = new Listing({
-      creatorId,
+      creator,
       category,
       type,
       streetAddress,

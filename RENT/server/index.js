@@ -1,4 +1,6 @@
 const express = require("express");
+const path = require('path');
+
 const app = express();
 const listingRoutes = require('./routes/listing.js')
 const mongoose = require("mongoose");
@@ -8,7 +10,7 @@ const authRoutes = require('./routes/auth')
 
 app.use(cors());
 app.use(express.json());
-app.use("/public", express.static("public"));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.urlencoded({ extended: true }));  // For parsing application/x-www-form-urlencoded
 
 // Routes
