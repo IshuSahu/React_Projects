@@ -24,39 +24,54 @@ router.get("/:userId/trips", async (req, res) => {
 router.patch("/:userId/:listingId", async (req, res) => {
   try {
     const { userId, listingId } = req.params;
-    const user = await User.findById(userId);
-    const listing = await Listing.findById(listingId).populate("creator");
 
+    // Fetch user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Ensure wishlist is initialized
+    if (!user.wishList) {
+      user.wishList = [];
+    }
+
+    // Fetch listing by ID
+    const listing = await Listing.findById(listingId).populate("creator");
+    if (!listing) {
+      return res.status(404).json({ error: "Listing not found" });
+    }
+
+    // Check if listing is already in the wishlist
     const favoriteListing = user.wishList.find(
       (item) => item._id.toString() === listingId
     );
 
     if (favoriteListing) {
+      // Remove from wishlist
       user.wishList = user.wishList.filter(
         (item) => item._id.toString() !== listingId
       );
       await user.save();
-      res
-        .status(200)
-        .json({
-          message: "Listing is removed from wish list",
-          wishList: user.wishList,
-        });
+      res.status(200).json({
+        message: "Listing is removed from wish list",
+        wishList: user.wishList,
+      });
     } else {
+      // Add to wishlist
       user.wishList.push(listing);
       await user.save();
-      res
-        .status(200)
-        .json({
-          message: "Listing is added to wish list",
-          wishList: user.wishList,
-        });
+      res.status(200).json({
+        message: "Listing is added to wish list",
+        wishList: user.wishList,
+      });
     }
   } catch (err) {
     console.log(err);
-    res.status(404).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
+
 
 /* GET PROPERTY LIST */
 router.get("/:userId/properties", async (req, res) => {

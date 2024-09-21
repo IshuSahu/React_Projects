@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "../styles/ListingCard.scss";
 import {
-  MdArrowBackIosNew,
-  MdArrowForwardIos,
-  MdFavorite,
-} from "react-icons/md";
+  ArrowForwardIos,
+  ArrowBackIosNew,
+  Favorite,
+} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setWishList } from "../redux/state";
@@ -64,6 +64,8 @@ function ListingCard({
       );
       const data = await response.json();
       dispatch(setWishList(data.wishList));
+      console.log(data);
+      
     } else {
       return;
     }
@@ -91,10 +93,10 @@ function ListingCard({
                 />
               )}
               <div className="prev-button" onClick={gotoPrevSlide}>
-                <MdArrowBackIosNew style={{ fontSize: "15px" }} />
+                <ArrowBackIosNew style={{ fontSize: "15px" }} />
               </div>
               <div className="next-button" onClick={gotoNextSlide}>
-                <MdArrowForwardIos style={{ fontSize: "15px" }} />
+                <ArrowForwardIos style={{ fontSize: "15px" }} />
               </div>
             </div>
           ))}
@@ -123,7 +125,7 @@ function ListingCard({
         )}
       </div>
 
-      {/* <button
+      <button
         className="favorite"
         onClick={(e) => {
           e.stopPropagation();
@@ -132,11 +134,11 @@ function ListingCard({
         disabled={!user}
       >
         {isLiked ? (
-          <MdFavorite sx={{ color: "red" }} />
+          <Favorite sx={{ color: "red" }} />
         ) : (
-          <MdFavorite sx={{ color: "white" }} />
+          <Favorite sx={{ color: "white" }} />
         )}
-      </button> */}
+      </button>
     </div>
   );
 }
