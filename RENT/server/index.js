@@ -1,12 +1,15 @@
 const express = require("express");
 const path = require('path');
-
-const app = express();
-const listingRoutes = require('./routes/listing.js')
 const mongoose = require("mongoose");
-require('dotenv').config();
 const cors = require("cors");
+require('dotenv').config();
+const app = express();
 const authRoutes = require('./routes/auth')
+const listingRoutes = require('./routes/listing.js')
+const bookingRoutes = require('./routes/booking.js')
+const userRoutes = require('./routes/user.js')
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -16,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));  // For parsing application/x-w
 // Routes
 app.use('/auth',authRoutes)
 app.use('/properties', listingRoutes)
+app.use('/bookings', bookingRoutes)
+app.use('/users', userRoutes)
 
 
 

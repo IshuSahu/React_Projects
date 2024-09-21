@@ -19,6 +19,9 @@ function ListingCard({
   type,
   price,
   booking = false,
+  startDate,
+  endDate,
+  totalPrice,
 }) {
   /*SLIDER FOR IMAGE */
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -79,7 +82,13 @@ function ListingCard({
               key={index}
             >
               {index === currentIndex && (
-                <img src={formatPhotoPath(photo)} alt={`photo ${index + 1}`} />
+                <img
+                  src={formatPhotoPath(photo)}
+                  alt={`photo ${index + 1}`}
+                  onClick={() => {
+                    navigate(`/properties/${listingId}`);
+                  }}
+                />
               )}
               <div className="prev-button" onClick={gotoPrevSlide}>
                 <MdArrowBackIosNew style={{ fontSize: "15px" }} />
@@ -90,29 +99,29 @@ function ListingCard({
             </div>
           ))}
         </div>
-      </div>
-      <h3>
-        {city}, {country}
-      </h3>
-      <p>{category}</p>
+        <h3>
+          {city}, {country}
+        </h3>
+        <p>{category}</p>
 
-      {/* {!booking ? (
-        <>
-          <p>{type}</p>
-          <p>
-            <span>${price}</span> per night
-          </p>
-        </>
-      ) : (
-        <>
-          <p>
-            {startDate} - {endDate}
-          </p>
-          <p>
-            <span>${totalPrice}</span> total
-          </p>
-        </>
-      )} */}
+        {!booking ? (
+          <>
+            <p>{type}</p>
+            <p>
+              <span>₹{price}</span> per night
+            </p>
+          </>
+        ) : (
+          <>
+            <p>
+              {startDate} - {endDate}
+            </p>
+            <p>
+              <span>₹{totalPrice}</span> total
+            </p>
+          </>
+        )}
+      </div>
 
       {/* <button
         className="favorite"
