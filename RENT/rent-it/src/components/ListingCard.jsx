@@ -57,7 +57,7 @@ function ListingCard({
         `http://localhost:3000/users/${user?._id}/${listingId}`,
         {
           method: "PATCH",
-          header: {
+          headers: {
             "Content-Type": "application/json",
           },
         }
@@ -65,7 +65,6 @@ function ListingCard({
       const data = await response.json();
       dispatch(setWishList(data.wishList));
       console.log(data);
-      
     } else {
       return;
     }
