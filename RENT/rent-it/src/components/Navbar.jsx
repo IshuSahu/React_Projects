@@ -13,7 +13,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-
+  console.log(user);
+  
   return (
     <div className="navbar">
       <a href="/">
@@ -27,9 +28,10 @@ const Navbar = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        {/* Disable the search when seach box is epty ele we receiv error */}
         <IconButton disabled={search === ""}>
           <Search
-            sx={{ color: "var(--pinkred)" }} 
+            sx={{ color: "var(--pinkred)" }}
             onClick={() => {
               navigate(`/properties/search/${search}`);
             }}
@@ -77,6 +79,16 @@ const Navbar = () => {
 
         {dropdownMenu && user && (
           <div className="navbar_right_accountmenu">
+            <h1
+              style={{
+                fontSize: "20px", 
+                fontWeight: "bold", 
+                textAlign: "center", 
+                margin: "2px 0", 
+              }}
+            >
+              {user.firstname} {user.lastname}
+            </h1>
             <Link to={`/${user._id}/trips`}>Trip List</Link>
             <Link to={`/${user._id}/wishList`}>Wish List</Link>
             <Link to={`/${user._id}/properties`}>Property List</Link>

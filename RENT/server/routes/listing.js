@@ -107,8 +107,9 @@ router.get("/search/:search", async (req, res) => {
     let listings = []
 
     if (search === "all") {
-      listings = await Listing.find().populate("creator")
+      listings = await Listing.find().populate("creator") // will find all
     } else {
+      /*This query finds listings where the category or title matches a search term (case-insensitive) and also retrieves the full details of the creator. */
       listings = await Listing.find({
         $or: [
           { category: {$regex: search, $options: "i" } },

@@ -8,9 +8,10 @@ import TripList from './pages/TripList'
 import WishList from './pages/WishList'
 import PropertyList from './pages/PropertyList'
 import ReservationList from './pages/ReservationList'
+import CategoryPage from './pages/CategoryPage'
+import SearchPage from './pages/SearchPage'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return(
     <>
@@ -21,6 +22,8 @@ function App() {
         <Route path='/register' element={<RegisterPage/>}/>
         <Route path='/create-listing' element={<CreateListing/>}/>
         <Route path='/properties/:listingId' element={<ListingDetails/>}/>
+        <Route path='/properties/category/:category' element={<CategoryPage/>}/>
+        <Route path='/properties/search/:search' element={<SearchPage/>}/>
         <Route path='/:userId/trips' element={<TripList/>}/>
         <Route path="/:userId/wishList" element={<WishList />} />
         <Route path="/:userId/properties" element={<PropertyList />} />
