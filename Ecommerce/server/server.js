@@ -5,12 +5,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
-app.use(cookieParser());
-app.use(express.json());
-
 /* MONGOOSE SETUP */
-const PORT = 3000;
+const PORT = process.env.PORT || 4000;
 mongoose
   .connect(process.env.MONGO_URL, {
     dbName: "ShopCity",
@@ -21,9 +17,28 @@ mongoose
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
   })
   .catch((err) => console.log(`${err} did not connect`));
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173/",
+    methods: ["GET", "POST", "DELETE", "PATCH", "PUT"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Cache-Control",
+      "Expires",
+      "Pragma",
+    ],
+    credentials: true,
+  })
+);
+app.use(cookieParser());
+app.use(express.json());
 
+// app.get("/", (req, res) => {
+//   res.send("server is running");
+// });
 
-
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+app.listen(PORT, '127.0.0.1', () => { // local
+  console.log(`Server is running on port ${PORT}`);
 });
