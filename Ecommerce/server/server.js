@@ -39,6 +39,6 @@ app.use(express.json());
 //   res.send("server is running");
 // });
 
-app.listen(PORT, '127.0.0.1', () => { // local
+app.listen(PORT, '127.0.0.1', () => { // localhost accupied
   console.log(`Server is running on port ${PORT}`);
 });
