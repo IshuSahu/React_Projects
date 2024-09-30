@@ -14,7 +14,7 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   console.log(user);
-  
+
   return (
     <div className="navbar">
       <a href="/">
@@ -81,10 +81,10 @@ const Navbar = () => {
           <div className="navbar_right_accountmenu">
             <h1
               style={{
-                fontSize: "20px", 
-                fontWeight: "bold", 
-                textAlign: "center", 
-                margin: "2px 0", 
+                fontSize: "20px",
+                fontWeight: "bold",
+                textAlign: "center",
+                margin: "2px 0",
               }}
             >
               {user.firstname} {user.lastname}
