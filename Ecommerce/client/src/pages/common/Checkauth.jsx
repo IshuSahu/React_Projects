@@ -1,21 +1,21 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
-function Checkauth({ isAuthenticate, user, children }) {
+function Checkauth({ isAuthenticated, user, children }) {
   const location = useLocation();
+
+  // Redirect unauthenticated users to login
   if (
-    !isAuthenticate &&
-    !(
-      location.pathname.includes("/login") ||
-      location.pathname.includes("/register")
-    )
+    !isAuthenticated &&
+    !(location.pathname.includes("/login") || location.pathname.includes("/register"))
   ) {
     return <Navigate to={"/auth/login"} />;
   }
+
+  // Redirect authenticated users trying to access login/register to appropriate page
   if (
-    isAuthenticate &&
-    (location.pathname.includes("/login") ||
-      location.pathname.includes("/register"))
+    isAuthenticated &&
+    (location.pathname.includes("/login") || location.pathname.includes("/register"))
   ) {
     if (user?.role === "admin") {
       return <Navigate to={"/admin/dashboard"} />;
@@ -23,22 +23,27 @@ function Checkauth({ isAuthenticate, user, children }) {
       return <Navigate to={"/user/home"} />;
     }
   }
+
+  // If an authenticated non-admin user tries to access admin pages, redirect them
   if (
-    isAuthenticate &&
+    isAuthenticated &&
     user?.role !== "admin" &&
     location.pathname.includes("admin")
   ) {
     return <Navigate to="/unauth-page" />;
   }
+
+  // Admin trying to access a non-admin page should stay on their current page
   if (
-    isAuthenticate &&
-    user?.role == "admin" &&
+    isAuthenticated &&
+    user?.role === "admin" &&
     location.pathname.includes("user")
   ) {
     return <Navigate to="/admin/dashboard" />;
   }
 
-  return  <>{children}</>
+  // Allow authenticated users to access the requested page without redirection
+  return <>{children}</>;
 }
 
 export default Checkauth;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Button } from "./components/ui/button";
 import { Route, Routes } from "react-router-dom";
@@ -17,21 +17,27 @@ import Listing from "./pages/shopping-view/Listing";
 import Checkout from "./pages/shopping-view/Checkout";
 import Account from "./pages/shopping-view/Account";
 import Checkauth from "./pages/common/Checkauth";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "./store/auth-slice";
 
 export default function App() {
-  const isAuthenticate = false;
-  const user =  null
-  // {
-  //   name: 'Ishu',
-  //   role: 'admin'
-  // };
+  const {isAuthenticated, user,isLoading } = useSelector((state) => state.auth)
+  // console.log(isAuthenticated);
+  // console.log(user);
+
+  const dispatch = useDispatch()
+  useEffect(()=>{
+      dispatch(checkAuth())
+  },[dispatch])
+  
+  if(isLoading) return <div>Loading...</div>
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
         <Route
           path="/auth"
           element={
-            <Checkauth isAuthenticate={isAuthenticate} user={user}>
+            <Checkauth isAuthenticated={isAuthenticated} user={user}>
               {/* Children */}
               <AuthLayout />
             </Checkauth>
@@ -43,7 +49,7 @@ export default function App() {
         <Route
           path="/admin"
           element={
-            <Checkauth isAuthenticate={isAuthenticate} user={user}>
+            <Checkauth isAuthenticated={isAuthenticated} user={user}>
               <AdminLayout />
             </Checkauth>
           }
@@ -56,7 +62,7 @@ export default function App() {
         <Route
           path="/user"
           element={
-            <Checkauth isAuthenticate={isAuthenticate} user={user}>
+            <Checkauth isAuthenticated={isAuthenticated} user={user}>
               <ShoppingLayout />
             </Checkauth>
           }
