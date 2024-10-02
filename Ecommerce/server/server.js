@@ -4,6 +4,7 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRouter = require("./routes/auth/auth-routes");
+const adminProductRouter = require('./routes/admin/product-routes')
 const app = express();
 
 /* MONGOOSE SETUP */
@@ -37,6 +38,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRouter);
+app.use("/api/admin/products", adminProductRouter);
 
 // app.get("/", (req, res) => {
 //   res.send("server is running");

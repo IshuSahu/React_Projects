@@ -19,7 +19,7 @@ function ProductImageUpload({
 }) {
   const inputRef = useRef(null);
 
-  console.log(isEditMode, "isEditMode");
+  console.log("isEditMode", isEditMode);
 
   function handleImageFileChange(event) {
     console.log(event.target.files, "event.target.files");
@@ -46,25 +46,25 @@ function ProductImageUpload({
     }
   }
 
-//   async function uploadImageToCloudinary() {
-//     setImageLoadingState(true);
-//     const data = new FormData();
-//     data.append("my_file", imageFile);
-//     const response = await axios.post(
-//       "http://localhost:5000/api/admin/products/upload-image",
-//       data
-//     );
-//     console.log(response, "response");
+  async function uploadImageToCloudinary() {
+    setImageLoadingState(true);
+    const data = new FormData();
+    data.append("my_file", imageFile);
+    const response = await axios.post(
+      "http://127.0.0.1:4001/api/admin/products/upload-image",
+      data
+    );
+    console.log("response", response);
 
-//     if (response?.data?.success) {
-//       setUploadedImageUrl(response.data.result.url);
-//       setImageLoadingState(false);
-//     }
-//   }
+    if (response?.data?.success) {
+      setUploadedImageUrl(response.data.result.url);
+      setImageLoadingState(false);
+    }
+  }
 
-//   useEffect(() => {
-//     if (imageFile !== null) uploadImageToCloudinary();
-//   }, [imageFile]);
+  useEffect(() => {
+    if (imageFile !== null) uploadImageToCloudinary();
+  }, [imageFile]);
 
   return (
     <div
