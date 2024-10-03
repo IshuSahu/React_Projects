@@ -13,12 +13,12 @@ import Features from "./pages/admin-view/Features";
 import ShoppingLayout from "./components/shopping-view/ShoppingLayout";
 import Index from "./pages/not-found";
 import Home from "./pages/shopping-view/Home";
-import Listing from "./pages/shopping-view/Listing";
 import Checkout from "./pages/shopping-view/Checkout";
 import Account from "./pages/shopping-view/Account";
 import Checkauth from "./pages/common/Checkauth";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./store/auth-slice";
+import Listing from "./pages/shopping-view/Listing";
 
 export default function App() {
   const {isAuthenticated, user,isLoading } = useSelector((state) => state.auth)
@@ -68,7 +68,7 @@ export default function App() {
           }
         >
           <Route path="home" element={<Home />} />
-          <Route path="listing" element={<Listing />} />
+          <Route path="listing" element={<Listing/>} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="account" element={<Account />} />
         </Route>
