@@ -1,19 +1,21 @@
 import { Badge } from "lucide-react";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { brandOptionsMap, categoryOptionsMap } from "@/config";
+import { Button } from "../ui/button";
 
 
 function ShoppingProductList(
-    {
-  product,
-//   handleGetProductDetails,
-//   handleAddtoCart,
-}
+  {
+    product,
+    //   handleGetProductDetails,
+    //   handleAddtoCart,
+  }
 ) {
+
   return (
     <Card className="w-full max-w-sm mx-auto">
-      <div 
-    //   onClick={() => handleGetProductDetails(product?._id) }
+      <div
+      //   onClick={() => handleGetProductDetails(product?._id) }
       >
         <div className="relative">
           <img
@@ -29,7 +31,7 @@ function ShoppingProductList(
             <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
               {`Only ${product?.totalStock} items left`}
             </Badge>
-          ) : product?.salePrice > 0 ? (
+          ) : product?.salePrice > 10 ? (
             <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
               Sale
             </Badge>
@@ -47,9 +49,8 @@ function ShoppingProductList(
           </div>
           <div className="flex justify-between items-center mb-2">
             <span
-              className={`${
-                product?.salePrice > 0 ? "line-through" : ""
-              } text-lg font-semibold text-primary`}
+              className={`${product?.salePrice > 0 ? "line-through" : ""
+                } text-lg font-semibold text-primary`}
             >
               ${product?.price}
             </span>

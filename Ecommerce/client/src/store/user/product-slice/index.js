@@ -9,17 +9,16 @@ const initialState = {
 
 export const fetchAllFilteredProducts = createAsyncThunk(
   "/products/fetchAllProducts",
-  async () => {
-    // { filterParams, sortParams }
+  async ({ filterParams, sortParams }) => {
     console.log(fetchAllFilteredProducts, "fetchAllFilteredProducts");
 
-    // const query = new URLSearchParams({
-    //   ...filterParams,
-    //   sortBy: sortParams,
-    // });
+    const query = new URLSearchParams({
+      ...filterParams,
+      sortBy: sortParams,
+    });
 
     const result = await axios.get(
-      `http://127.0.0.1:4001/api/user/products/get`
+       `http://127.0.0.1:4001/api/user/products/get?${query}`
     );
 
     console.log(result);
@@ -34,7 +33,7 @@ export const fetchProductDetails = createAsyncThunk(
     const result = await axios.get(
       `http://127.0.0.1:4001/api/user/products/get/${id}`
     );
-
+zzz
     return result?.data;
   }
 );
