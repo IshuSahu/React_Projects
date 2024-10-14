@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 function ShoppingProductList(
   {
     product,
-    //   handleGetProductDetails,
+      handleGetProductDetails,
     //   handleAddtoCart,
   }
 ) {
@@ -15,7 +15,7 @@ function ShoppingProductList(
   return (
     <Card className="w-full max-w-sm mx-auto">
       <div
-      //   onClick={() => handleGetProductDetails(product?._id) }
+        onClick={() => handleGetProductDetails(product?._id) }
       >
         <div className="relative">
           <img

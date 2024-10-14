@@ -18,10 +18,10 @@ export const fetchAllFilteredProducts = createAsyncThunk(
     });
 
     const result = await axios.get(
-       `http://127.0.0.1:4001/api/user/products/get?${query}`
+      `http://127.0.0.1:4001/api/user/products/get?${query}`
     );
 
-    console.log(result);
+    // console.log(result);
 
     return result?.data;
   }
@@ -33,7 +33,6 @@ export const fetchProductDetails = createAsyncThunk(
     const result = await axios.get(
       `http://127.0.0.1:4001/api/user/products/get/${id}`
     );
-zzz
     return result?.data;
   }
 );

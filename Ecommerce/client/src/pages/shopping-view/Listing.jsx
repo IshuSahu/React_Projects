@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
-import { fetchAllFilteredProducts } from "@/store/user/product-slice";
+import { fetchAllFilteredProducts, fetchProductDetails } from "@/store/user/product-slice";
 import { DropdownMenuContent } from "@radix-ui/react-dropdown-menu";
 import { ArrowUpDownIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ import { useSearchParams } from "react-router-dom";
 
 function Listing() {
   const dispatch = useDispatch();
-  const { productList } = useSelector((state) => state.shopProducts);
+  const { productList, productDetails } = useSelector((state) => state.shopProducts);
   const [productFilter, setProductFilter] = useState({});
   const [Sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -85,7 +85,13 @@ function Listing() {
       setSearchParams(new URLSearchParams(createQueryString));
     }
   }, [productFilter]);
-  console.log("filter", searchParams, productFilter);
+
+  function handleGetProductDetails(getCurrentProdId){
+    console.log(getCurrentProdId);
+    dispatch(fetchProductDetails(getCurrentProdId))
+  }
+
+  console.log(productDetails);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6">
@@ -127,7 +133,7 @@ function Listing() {
           {productList && productList.length > 0
             ? productList.map((productItem) => (
                 <ShoppingProductList
-                  // handleGetProductDetails={handleGetProductDetails}
+                  handleGetProductDetails={handleGetProductDetails}
                   product={productItem}
                   // handleAddtoCart={handleAddtoCart}
                 />
