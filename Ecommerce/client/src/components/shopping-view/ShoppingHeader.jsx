@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HousePlug, LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
@@ -16,6 +16,8 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { logoutUser } from "@/store/auth-slice";
+import { fetchCartItems } from "@/store/user/cart-slice";
+import UserCartWrapper from "./UserCartWrapper";
 
 function MenuItems() {
   const navigate = useNavigate();
@@ -36,8 +38,8 @@ function MenuItems() {
 
 function HeaderRightContent() {
   const { user } = useSelector((state) => state.auth);
-  // const { cartItems } = useSelector((state) => state.shopCart);
-  // const [openCartSheet, setOpenCartSheet] = useState(false);
+  const { cartItems } = useSelector((state) => state.shopCart);
+  const [openCartSheet, setOpenCartSheet] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -45,15 +47,15 @@ function HeaderRightContent() {
     dispatch(logoutUser());
   }
 
-  // useEffect(() => {
-  //   dispatch(fetchCartItems(user?.id));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchCartItems(user?.id));
+  }, [dispatch]);
 
-  // console.log(cartItems, "sangam");
+  console.log(cartItems);
 
   return (
     <div className="flex lg:items-center gap-4 sm:mb-5">
-      {/* <Sheet 
+      <Sheet 
       open={openCartSheet} 
       onOpenChange={() => setOpenCartSheet(false)
         
@@ -78,11 +80,11 @@ function HeaderRightContent() {
               : []
           }
         />
-      </Sheet> */}
-      <Button variant="outline" size="icon">
+      </Sheet>
+      {/* <Button variant="outline" size="icon">
         <ShoppingCart className="w-6 h-6" />
         <span className=" sr-only"> User Cart</span>
-      </Button>
+      </Button> */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar className="bg-black cursor-pointer">

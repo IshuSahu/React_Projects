@@ -3,20 +3,14 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 import { brandOptionsMap, categoryOptionsMap } from "@/config";
 import { Button } from "../ui/button";
 
-
-function ShoppingProductList(
-  {
-    product,
-      handleGetProductDetails,
-    //   handleAddtoCart,
-  }
-) {
-
+function ShoppingProductList({
+  product,
+  handleGetProductDetails,
+  handleAddtoCart,
+}) {
   return (
     <Card className="w-full max-w-sm mx-auto">
-      <div
-        onClick={() => handleGetProductDetails(product?._id) }
-      >
+      <div onClick={() => handleGetProductDetails(product?._id)}>
         <div className="relative">
           <img
             src={product?.image}
@@ -49,8 +43,9 @@ function ShoppingProductList(
           </div>
           <div className="flex justify-between items-center mb-2">
             <span
-              className={`${product?.salePrice > 0 ? "line-through" : ""
-                } text-lg font-semibold text-primary`}
+              className={`${
+                product?.salePrice > 0 ? "line-through" : ""
+              } text-lg font-semibold text-primary`}
             >
               ${product?.price}
             </span>
@@ -69,7 +64,7 @@ function ShoppingProductList(
           </Button>
         ) : (
           <Button
-            // onClick={() => handleAddtoCart(product?._id, product?.totalStock)}
+            onClick={() => handleAddtoCart(product?._id, product?.totalStock)}
             className="w-full"
           >
             Add to cart
