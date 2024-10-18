@@ -5,12 +5,15 @@ import authSlice from "./auth-slice/index";
 import adminProductsSlice from "./admin/product-slice/index";
 import shopProductSlice from './user/product-slice/index'
 import shopCartSlice from './user/cart-slice/index'
+import addressSlice from './user/address-slice/index'
+
 const store = configureStore({
   reducer: {
     auth: authSlice,
     adminProducts: adminProductsSlice,
     shopProducts: shopProductSlice,
-    shopCart: shopCartSlice
+    shopCart: shopCartSlice,
+    shopAddress: addressSlice
   },
 });
 

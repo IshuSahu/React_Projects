@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { HousePlug, LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
+import {
+  HousePlug,
+  LogOut,
+  Menu,
+  ShoppingCart,
+  ShoppingCartIcon,
+  UserCog,
+} from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,11 +28,27 @@ import UserCartWrapper from "./UserCartWrapper";
 
 function MenuItems() {
   const navigate = useNavigate();
+  function handleNavigate(getCurrentMenuItem) {
+    sessionStorage.removeItem("productFilter");
+    const currentFilter =
+      getCurrentMenuItem.id !== "home" &&
+      getCurrentMenuItem.id !== "products" &&
+      getCurrentMenuItem.id !== "search"
+        ? {
+            category: [getCurrentMenuItem.id],
+          }
+        : null;
+
+    sessionStorage.setItem("productFilter", JSON.stringify(currentFilter));
+    console.log(getCurrentMenuItem.path);
+    
+    navigate(getCurrentMenuItem.path);
+  }
   return (
     <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
-      {shoppingViewHeaderMenuItems.map((menuItem) => (
+     {shoppingViewHeaderMenuItems.map((menuItem) => (
         <Label
-          onClick={() => navigate(menuItem.path)}
+          onClick={() => handleNavigate(menuItem)}
           className="text-sm font-medium cursor-pointer"
           key={menuItem.id}
         >
@@ -51,15 +74,11 @@ function HeaderRightContent() {
     dispatch(fetchCartItems(user?.id));
   }, [dispatch]);
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
   return (
     <div className="flex lg:items-center gap-4 sm:mb-5">
-      <Sheet 
-      open={openCartSheet} 
-      onOpenChange={() => setOpenCartSheet(false)
-        
-      }>
+      <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
         <Button
           onClick={() => setOpenCartSheet(true)}
           variant="outline"
@@ -82,10 +101,10 @@ function HeaderRightContent() {
         />
       </Sheet>
       {/* <Button variant="outline" size="icon">
-        <ShoppingCart className="w-6 h-6" />
+        <ShoppingCartIcon className="w-6 h-6" />
         <span className=" sr-only"> User Cart</span>
       </Button> */}
-      <DropdownMenu>
+      <DropdownMenu>  
         <DropdownMenuTrigger asChild>
           <Avatar className="bg-black cursor-pointer">
             <AvatarFallback className="bg-black text-white font-extrabold">
@@ -128,7 +147,7 @@ function ShoppingHeader() {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-full max-w-xs">
-            <HeaderRightContent/>
+            <HeaderRightContent />
             <MenuItems />
           </SheetContent>
         </Sheet>
