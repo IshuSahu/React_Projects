@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import React, { useState } from "react";
+import { Card, CardContent, CardTitle } from "../ui/card";
 import {
   Table,
   TableBody,
@@ -8,37 +8,18 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-
-import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
-import OrderDetailsView from "./Orderdetails";
 import { Dialog } from "../ui/dialog";
+import AdminOrderDetails from "./AdminOrderDetails";
 
-function Orders() {
+function AdminOrders() {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-  // const dispatch = useDispatch();
-  // const { user } = useSelector((state) => state.auth);
-  // const { orderList, orderDetails } = useSelector((state) => state.shopOrder);
-
-  // function handleFetchOrderDetails(getId) {
-  //   dispatch(getOrderDetails(getId));
-  // }
-
-  // useEffect(() => {
-  //   dispatch(getAllOrdersByUserId(user?.id));
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (orderDetails !== null) setOpenDetailsDialog(true);
-  // }, [orderDetails]);
-
-  // console.log(orderDetails, "orderDetails");
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Order History</CardTitle>
-      </CardHeader>
+      <CardContent>
+        <CardTitle>All Orders</CardTitle>
+      </CardContent>
       <CardContent>
         <Table>
           <TableHeader>
@@ -59,14 +40,14 @@ function Orders() {
               <TableCell>In Process</TableCell>
               <TableCell>$10000</TableCell>
               <TableCell>
-              <Dialog
+                <Dialog
                   open={openDetailsDialog}
                   onOpenChange={setOpenDetailsDialog}
                 >
                   <Button onClick={() => setOpenDetailsDialog(true)}>
                     View Details
                   </Button>
-                  <OrderDetailsView />
+                  <AdminOrderDetails />
                 </Dialog>
               </TableCell>
             </TableRow>
@@ -119,4 +100,4 @@ function Orders() {
   );
 }
 
-export default Orders
+export default AdminOrders;
