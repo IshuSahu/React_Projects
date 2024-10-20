@@ -8,6 +8,7 @@ const adminProductRouters = require('./routes/admin/product-routes')
 const shopProductRoters  = require('./routes/shop/product-route')
 const shopCartRouter = require("./routes/shop/cart-routes");
 const addressRouter = require("./routes/shop/address-routes");
+const shopSearchRouter = require("./routes/shop/search-routes");
 const app = express();
 
 /* MONGOOSE SETUP */
@@ -45,6 +46,7 @@ app.use("/api/admin/products", adminProductRouters);
 app.use("/api/user/products", shopProductRoters);
 app.use("/api/user/cart", shopCartRouter);
 app.use("/api/user/address", addressRouter);
+app.use("/api/user/search", shopSearchRouter);
 // app.get("/", (req, res) => {
 //   res.send("server is running");
 // });
