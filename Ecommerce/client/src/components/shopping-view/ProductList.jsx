@@ -1,7 +1,8 @@
-import { Badge } from "lucide-react";
+
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { brandOptionsMap, categoryOptionsMap } from "@/config";
 import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 
 function ShoppingProductList({
   product,
