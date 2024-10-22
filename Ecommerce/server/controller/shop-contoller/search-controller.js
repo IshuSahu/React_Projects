@@ -11,7 +11,6 @@ const searchProducts = async (req, res) => {
     }
 
     const regEx = new RegExp(keyword, "i");
-
     const createSearchQuery = {
       $or: [
         { title: regEx },

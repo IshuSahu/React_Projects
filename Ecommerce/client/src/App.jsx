@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./store/auth-slice";
 import Listing from "./pages/shopping-view/Listing";
 import SearchProducts from "./pages/shopping-view/Search";
+import PaypalReturnPage from "./pages/shopping-view/paypal-return";
+import PaymentSuccessPage from "./pages/shopping-view/payment-success";
 
 export default function App() {
   const {isAuthenticated, user,isLoading } = useSelector((state) => state.auth)
@@ -72,6 +74,8 @@ export default function App() {
           <Route path="listing" element={<Listing/>} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="account" element={<Account />} />
+          <Route path="paypal-return" element={<PaypalReturnPage />} />
+          <Route path="payment-success" element={<PaymentSuccessPage />} />
           <Route path="search" element={<SearchProducts/>} />
         </Route>
         <Route path="/*" element={<Index />} />
