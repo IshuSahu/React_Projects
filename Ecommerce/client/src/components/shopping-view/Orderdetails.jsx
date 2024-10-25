@@ -13,32 +13,27 @@ function OrderDetailsView({ orderDetails }) {
         <div className="grid gap-2">
           <div className="flex mt-6 items-center justify-between">
             <p className="font-medium">Order ID</p>
-            {/* <Label>{orderDetails?._id}</Label> */}
-            <Label>1331321</Label>
+            <Label>{orderDetails?._id}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Date</p>
-            {/* <Label>{orderDetails?.orderDate.split("T")[0]}</Label> */}
-            <Label>10/11/2023</Label>
+            <Label>{orderDetails?.orderDate.split("T")[0]}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Price</p>
-            {/* <Label>${orderDetails?.totalAmount}</Label> */}
-            <Label>$1213</Label>
+            <Label>${orderDetails?.totalAmount}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Payment method</p>
-            {/* <Label>{orderDetails?.paymentMethod}</Label> */}
-            <Label>Paypal</Label>
+            <Label>{orderDetails?.paymentMethod}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Payment Status</p>
-            {/* <Label>{orderDetails?.paymentStatus}</Label> */}
-            <Label>Success</Label>
+            <Label>{orderDetails?.paymentStatus}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Status</p>
-            {/* <Label>
+            <Label>
               <Badge
                 className={`py-1 px-3 ${
                   orderDetails?.orderStatus === "confirmed"
@@ -50,11 +45,6 @@ function OrderDetailsView({ orderDetails }) {
               >
                 {orderDetails?.orderStatus}
               </Badge>
-            </Label> */}
-            <Label >
-                <Badge className='py-1 px-3 bg-green-500 text-black font-bold text-base'>
-                    confirmed
-                </Badge>
             </Label>
           </div>
         </div>
@@ -69,6 +59,7 @@ function OrderDetailsView({ orderDetails }) {
                       <span>Title: {item.title}</span>
                       <span>Quantity: {item.quantity}</span>
                       <span>Price: ${item.price}</span>
+                      <span>Total price: ${item.price * item.quantity}</span>
                     </li>
                   ))
                 : null}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Table,
@@ -13,26 +13,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
 import OrderDetailsView from "./Orderdetails";
 import { Dialog } from "../ui/dialog";
+import {
+  getAllOrdersByUserId,
+  getOrderDetails,
+  resetOrderDetails,
+} from "@/store/user/order-slice";
+import { Badge } from "../ui/badge";
 
 function Orders() {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-  // const dispatch = useDispatch();
-  // const { user } = useSelector((state) => state.auth);
-  // const { orderList, orderDetails } = useSelector((state) => state.shopOrder);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const { orderList, orderDetails } = useSelector((state) => state.shopOrder);
 
-  // function handleFetchOrderDetails(getId) {
-  //   dispatch(getOrderDetails(getId));
-  // }
+  function handleFetchOrderDetails(getId) {
+    dispatch(getOrderDetails(getId));
+  }
 
-  // useEffect(() => {
-  //   dispatch(getAllOrdersByUserId(user?.id));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllOrdersByUserId(user?.id));
+  }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (orderDetails !== null) setOpenDetailsDialog(true);
-  // }, [orderDetails]);
+  useEffect(() => {
+    if (orderDetails !== null) setOpenDetailsDialog(true);
+  }, [orderDetails]);
 
-  // console.log(orderDetails, "orderDetails");
+  console.log("Order", orderList, orderDetails);
 
   return (
     <Card>
@@ -43,16 +49,16 @@ function Orders() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Order ID</TableHead>
-              <TableHead>Order Date</TableHead>
-              <TableHead>Order Status</TableHead>
-              <TableHead>Order Price</TableHead>
+              <TableHead className="text-center px-3">Order ID</TableHead>
+              <TableHead className="text-center px-3">Order Date</TableHead>
+              <TableHead className="text-center px-3">Order Status</TableHead>
+              <TableHead className="text-center px-3">Order Price</TableHead>
               <TableHead>
                 <span className="sr-only">Details</span>
               </TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          {/* <TableBody>
             <TableRow>
               <TableCell>2113111</TableCell>
               <TableCell>12/10/2024</TableCell>
@@ -70,8 +76,8 @@ function Orders() {
                 </Dialog>
               </TableCell>
             </TableRow>
-          </TableBody>
-          {/* <TableBody>
+          </TableBody> */}
+          <TableBody>
             {orderList && orderList.length > 0
               ? orderList.map((orderItem) => (
                   <TableRow>
@@ -106,17 +112,17 @@ function Orders() {
                         >
                           View Details
                         </Button>
-                        <ShoppingOrderDetailsView orderDetails={orderDetails} />
+                        <OrderDetailsView orderDetails={orderDetails} />
                       </Dialog>
                     </TableCell>
                   </TableRow>
                 ))
               : null}
-          </TableBody> */}
+          </TableBody>
         </Table>
       </CardContent>
     </Card>
   );
 }
 
-export default Orders
+export default Orders;

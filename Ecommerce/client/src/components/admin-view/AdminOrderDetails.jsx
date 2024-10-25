@@ -4,13 +4,9 @@ import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   getAllOrdersForAdmin,
-//   getOrderDetailsForAdmin,
-//   updateOrderStatus,
-// } from "@/store/admin/order-slice";
 import CommonForm from "@/pages/common/CommonForm";
 import { useToast } from "@/hooks/use-toast";
+import { getAllOrdersForAdmin, getOrderDetailsForAdmin } from "@/store/admin/order-slice";
 
 const initialFormData = {
   status: "",
@@ -28,18 +24,18 @@ function AdminOrderDetails({ orderDetails }) {
     event.preventDefault();
     const { status } = formData;
 
-    // dispatch(
-    //   updateOrderStatus({ id: orderDetails?._id, orderStatus: status })
-    // ).then((data) => {
-    //   if (data?.payload?.success) {
-    //     dispatch(getOrderDetailsForAdmin(orderDetails?._id));
-    //     dispatch(getAllOrdersForAdmin());
-    //     setFormData(initialFormData);
-    //     toast({
-    //       title: data?.payload?.message,
-    //     });
-    //   }
-    // });
+    dispatch(
+      updateOrderStatus({ id: orderDetails?._id, orderStatus: status })
+    ).then((data) => {
+      if (data?.payload?.success) {
+        dispatch(getOrderDetailsForAdmin(orderDetails?._id));
+        dispatch(getAllOrdersForAdmin());
+        setFormData(initialFormData);
+        toast({
+          title: data?.payload?.message,
+        });
+      }
+    });
   }
 
   return (
@@ -48,32 +44,27 @@ function AdminOrderDetails({ orderDetails }) {
         <div className="grid gap-2">
           <div className="flex mt-6 items-center justify-between">
             <p className="font-medium">Order ID</p>
-            {/* <Label>{orderDetails?._id}</Label> */}
-            <Label>123221</Label>
+            <Label>{orderDetails?._id}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Date</p>
-            {/* <Label>{orderDetails?.orderDate.split("T")[0]}</Label> */}
-            <Label>10/11/2001</Label>
+            <Label>{orderDetails?.orderDate.split("T")[0]}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Price</p>
-            {/* <Label>${orderDetails?.totalAmount}</Label> */}
-            <Label>$1001</Label>
+            <Label>${orderDetails?.totalAmount}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Payment method</p>
-            {/* <Label>{orderDetails?.paymentMethod}</Label> */}
-            <Label>Paypal</Label>
+            <Label>{orderDetails?.paymentMethod}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Payment Status</p>
-            {/* <Label>{orderDetails?.paymentStatus}</Label> */}
-            <Label>Sucess</Label>
+            <Label>{orderDetails?.paymentStatus}</Label>
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Status</p>
-            {/* <Label>
+            <Label>
               <Badge
                 className={`py-1 px-3 ${
                   orderDetails?.orderStatus === "confirmed"
@@ -85,12 +76,8 @@ function AdminOrderDetails({ orderDetails }) {
               >
                 {orderDetails?.orderStatus}
               </Badge>
-            </Label> */}
-            <Label >
-                <Badge className='py-1 px-3 bg-green-500 text-black font-bold text-base'>
-                    confirmed
-                </Badge>
             </Label>
+
           </div>
         </div>
         <Separator />

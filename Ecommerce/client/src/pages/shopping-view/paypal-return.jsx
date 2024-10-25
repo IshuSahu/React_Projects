@@ -9,6 +9,7 @@ function PaypalReturnPage() {
   const dispatch = useDispatch();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
+  console.log(params);
   const paymentId = params.get("paymentId");
   const payerId = params.get("PayerID");
 
