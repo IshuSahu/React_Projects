@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { Card, CardContent, CardTitle } from "../ui/card";
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Dialog } from "../ui/dialog";
 import {
   Table,
   TableBody,
@@ -8,51 +10,54 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Button } from "../ui/button";
-import { Dialog } from "../ui/dialog";
+
+import { useDispatch, useSelector } from "react-redux";
+import { Badge } from "../ui/badge";
 import AdminOrderDetails from "./AdminOrderDetails";
+import {
+  getAllOrdersForAdmin,
+  getOrderDetailsForAdmin,
+  resetOrderDetails,
+} from "@/store/admin/order-slice";
 
 function AdminOrders() {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+  const { orderList, orderDetails } = useSelector((state) => state.adminOrders);
+  const dispatch = useDispatch();
+
+  function handleFetchOrderDetails(getId) {
+    dispatch(getOrderDetailsForAdmin(getId));
+  }
+
+  useEffect(() => {
+    dispatch(getAllOrdersForAdmin());
+  }, [dispatch]);
+
+  console.log(orderDetails, "orderList");
+
+  useEffect(() => {
+    if (orderDetails !== null) setOpenDetailsDialog(true);
+  }, [orderDetails]);
 
   return (
     <Card>
-      <CardContent>
+      <CardHeader>
         <CardTitle>All Orders</CardTitle>
-      </CardContent>
+      </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Order ID</TableHead>
-              <TableHead>Order Date</TableHead>
-              <TableHead>Order Status</TableHead>
-              <TableHead>Order Price</TableHead>
+              <TableHead className="text-center px-3">Order ID</TableHead>
+              <TableHead className="text-center px-3">Order Date</TableHead>
+              <TableHead className="text-center px-3">Order Status</TableHead>
+              <TableHead className="text-center px-3">Order Price</TableHead>
               <TableHead>
                 <span className="sr-only">Details</span>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell>2113111</TableCell>
-              <TableCell>12/10/2024</TableCell>
-              <TableCell>In Process</TableCell>
-              <TableCell>$10000</TableCell>
-              <TableCell>
-                <Dialog
-                  open={openDetailsDialog}
-                  onOpenChange={setOpenDetailsDialog}
-                >
-                  <Button onClick={() => setOpenDetailsDialog(true)}>
-                    View Details
-                  </Button>
-                  <AdminOrderDetails />
-                </Dialog>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-          {/* <TableBody>
             {orderList && orderList.length > 0
               ? orderList.map((orderItem) => (
                   <TableRow>
@@ -87,13 +92,13 @@ function AdminOrders() {
                         >
                           View Details
                         </Button>
-                        <ShoppingOrderDetailsView orderDetails={orderDetails} />
+                        <AdminOrderDetails orderDetails={orderDetails} />
                       </Dialog>
                     </TableCell>
                   </TableRow>
                 ))
               : null}
-          </TableBody> */}
+          </TableBody>
         </Table>
       </CardContent>
     </Card>

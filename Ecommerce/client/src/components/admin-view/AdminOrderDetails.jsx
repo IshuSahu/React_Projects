@@ -4,21 +4,25 @@ import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllOrdersForAdmin,
+  getOrderDetailsForAdmin,
+  updateOrderStatus,
+} from "@/store/admin/order-slice";
 import CommonForm from "@/pages/common/CommonForm";
 import { useToast } from "@/hooks/use-toast";
-import { getAllOrdersForAdmin, getOrderDetailsForAdmin } from "@/store/admin/order-slice";
 
 const initialFormData = {
   status: "",
 };
 
-function AdminOrderDetails({ orderDetails }) {
+function AdminOrderDetailsView({ orderDetails }) {
   const [formData, setFormData] = useState(initialFormData);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { toast } = useToast();
 
-//   console.log(orderDetails, "orderDetailsorderDetails");
+  console.log(orderDetails, "orderDetailsorderDetails");
 
   function handleUpdateStatus(event) {
     event.preventDefault();
@@ -39,7 +43,7 @@ function AdminOrderDetails({ orderDetails }) {
   }
 
   return (
-    <DialogContent className="sm:max-w-[600px]">
+    <DialogContent className="sm:max-w-[600px] max-h-[100vh] overflow-y-auto">
       <div className="grid gap-6">
         <div className="grid gap-2">
           <div className="flex mt-6 items-center justify-between">
@@ -77,7 +81,6 @@ function AdminOrderDetails({ orderDetails }) {
                 {orderDetails?.orderStatus}
               </Badge>
             </Label>
-
           </div>
         </div>
         <Separator />
@@ -138,4 +141,4 @@ function AdminOrderDetails({ orderDetails }) {
   );
 }
 
-export default AdminOrderDetails
+export default AdminOrderDetailsView;

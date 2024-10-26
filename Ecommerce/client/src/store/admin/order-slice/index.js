@@ -12,7 +12,8 @@ export const getAllOrdersForAdmin = createAsyncThunk(
     const response = await axios.get(
       `http://127.0.0.1:4001/api/admin/orders/get`
     );
-
+    console.log(response);
+    
     return response.data;
   }
 );
