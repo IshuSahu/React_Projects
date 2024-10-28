@@ -1,13 +1,28 @@
+import { LocateIcon } from "lucide-react";
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 function Checkauth({ isAuthenticated, user, children }) {
   const location = useLocation();
+  if (location.pathname == "/") {
+    if (!isAuthenticated) {
+      return <Navigate to={"/auth/login"} />;
+    } else {
+      if (user?.role === "admin") {
+        return <Navigate to={"/admin/dashboard"} />;
+      } else {
+        return <Navigate to={"/user/home"} />;
+      }
+    }
+  }
 
   // Redirect unauthenticated users to login
   if (
     !isAuthenticated &&
-    !(location.pathname.includes("/login") || location.pathname.includes("/register"))
+    !(
+      location.pathname.includes("/login") ||
+      location.pathname.includes("/register")
+    )
   ) {
     return <Navigate to={"/auth/login"} />;
   }
@@ -15,7 +30,8 @@ function Checkauth({ isAuthenticated, user, children }) {
   // Redirect authenticated users trying to access login/register to appropriate page
   if (
     isAuthenticated &&
-    (location.pathname.includes("/login") || location.pathname.includes("/register"))
+    (location.pathname.includes("/login") ||
+      location.pathname.includes("/register"))
   ) {
     if (user?.role === "admin") {
       return <Navigate to={"/admin/dashboard"} />;

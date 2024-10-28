@@ -24,19 +24,30 @@ import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
 
 export default function App() {
-  const {isAuthenticated, user,isLoading } = useSelector((state) => state.auth)
+  const { isAuthenticated, user, isLoading } = useSelector(
+    (state) => state.auth
+  );
   // console.log(isAuthenticated);
   // console.log(user);
 
-  const dispatch = useDispatch()
-  useEffect(()=>{
-      dispatch(checkAuth())
-  },[dispatch])
-  
-  if(isLoading) return <div>Loading...</div>
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
+        <Route
+          path="/"
+          element={
+            <Checkauth
+              isAuthenticated={isAuthenticated}
+              user={user}
+            ></Checkauth>
+          }
+        ></Route>
         <Route
           path="/auth"
           element={
@@ -71,12 +82,12 @@ export default function App() {
           }
         >
           <Route path="home" element={<Home />} />
-          <Route path="listing" element={<Listing/>} />
+          <Route path="listing" element={<Listing />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="account" element={<Account />} />
           <Route path="paypal-return" element={<PaypalReturnPage />} />
           <Route path="payment-success" element={<PaymentSuccessPage />} />
-          <Route path="search" element={<SearchProducts/>} />
+          <Route path="search" element={<SearchProducts />} />
         </Route>
         <Route path="/*" element={<Index />} />
       </Routes>

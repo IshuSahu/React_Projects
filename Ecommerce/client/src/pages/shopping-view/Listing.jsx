@@ -33,6 +33,7 @@ function Listing() {
   const { cartItems } = useSelector((state) => state.shopCart);
   const { user } = useSelector((state) => state.auth);
 
+  const categorySearchparam = searchParams.get('category')
 
   function handleSort(value) {
     setSort(value);
@@ -87,7 +88,7 @@ function Listing() {
   useEffect(() => {
     setSort("price-lowtohigh");
     setProductFilter(JSON.parse(sessionStorage.getItem("productFilter")) || {});
-  }, []);
+  }, [categorySearchparam]);
 
   // to add the filers in url:
   useEffect(() => {
@@ -101,6 +102,7 @@ function Listing() {
     console.log(getCurrentProdId);
     dispatch(fetchProductDetails(getCurrentProdId));
   }
+  
   function handleAddtoCart(getCurrentProductId, getTotalStock) {
     console.log(cartItems);
     let getCartItems = cartItems.items || [];

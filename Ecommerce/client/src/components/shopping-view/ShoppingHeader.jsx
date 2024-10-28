@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   HousePlug,
   LogOut,
@@ -28,6 +28,8 @@ import UserCartWrapper from "./UserCartWrapper";
 
 function MenuItems() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useState();
   function handleNavigate(getCurrentMenuItem) {
     sessionStorage.removeItem("productFilter");
     const currentFilter =
@@ -40,13 +42,16 @@ function MenuItems() {
         : null;
 
     sessionStorage.setItem("productFilter", JSON.stringify(currentFilter));
-    console.log(getCurrentMenuItem.path);
-    
-    navigate(getCurrentMenuItem.path);
+
+    location.pathname.includes("listing") && currentFilter !== null
+      ? setSearchParams(
+          new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
+        )
+      : navigate(getCurrentMenuItem.path);
   }
   return (
     <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
-     {shoppingViewHeaderMenuItems.map((menuItem) => (
+      {shoppingViewHeaderMenuItems.map((menuItem) => (
         <Label
           onClick={() => handleNavigate(menuItem)}
           className="text-sm font-medium cursor-pointer"
@@ -104,7 +109,7 @@ function HeaderRightContent() {
         <ShoppingCartIcon className="w-6 h-6" />
         <span className=" sr-only"> User Cart</span>
       </Button> */}
-      <DropdownMenu>  
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar className="bg-black cursor-pointer">
             <AvatarFallback className="bg-black text-white font-extrabold">
