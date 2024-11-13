@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   HousePlug,
   LogOut,
@@ -29,7 +29,7 @@ import UserCartWrapper from "./UserCartWrapper";
 function MenuItems() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [searchParams, setSearchParams] = useState();
+  const [searchParams, setSearchParams] = useSearchParams();
   function handleNavigate(getCurrentMenuItem) {
     sessionStorage.removeItem("productFilter");
     const currentFilter =
