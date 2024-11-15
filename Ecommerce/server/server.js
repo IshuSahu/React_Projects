@@ -13,6 +13,7 @@ const addressRouter = require("./routes/shop/address-routes");
 const shopSearchRouter = require("./routes/shop/search-routes");
 const shopOrderRouter = require("./routes/shop/order-routes");
 const shopReviewRouter = require("./routes/shop/review-routes");
+const commonFeatureRouter = require("./routes/common/features-route");
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use("/api/user/address", addressRouter);
 app.use("/api/user/order", shopOrderRouter);
 app.use("/api/user/search", shopSearchRouter);
 app.use("/api/user/review", shopReviewRouter);
+app.use("/api/common/feature", commonFeatureRouter);
 // app.get("/", (req, res) => {
 //   res.send("server is running");
 // });

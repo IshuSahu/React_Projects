@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import bannerOne from '../../assets/banner-1.webp'
-import bannerTwo from '../../assets/banner-2.webp'
-import bannerThree from '../../assets/banner-3.webp'
+import React, { useEffect, useState } from "react";
+import bannerOne from "../../assets/banner-1.webp";
+import bannerTwo from "../../assets/banner-2.webp";
+import bannerThree from "../../assets/banner-3.webp";
 import {
   Airplay,
   BabyIcon,
@@ -17,15 +17,19 @@ import {
   WashingMachine,
   WatchIcon,
 } from "lucide-react";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useToast } from '@/hooks/use-toast';
-import { fetchAllFilteredProducts, fetchProductDetails } from '@/store/user/product-slice';
-import { addToCart, fetchCartItems } from '@/store/user/cart-slice';
-import { Card, CardContent } from '@/components/ui/card';
-import ShoppingProductList from '@/components/shopping-view/ProductList';
-import ProductDetails from '@/components/shopping-view/ProductDetails';
-import { Button } from '@/components/ui/button';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import {
+  fetchAllFilteredProducts,
+  fetchProductDetails,
+} from "@/store/user/product-slice";
+import { addToCart, fetchCartItems } from "@/store/user/cart-slice";
+import { Card, CardContent } from "@/components/ui/card";
+import ShoppingProductList from "@/components/shopping-view/ProductList";
+import ProductDetails from "@/components/shopping-view/ProductDetails";
+import { Button } from "@/components/ui/button";
+import { getFeatureImages } from "@/store/common-slice";
 const categoriesWithIcon = [
   { id: "men", label: "Men", icon: ShirtIcon },
   { id: "women", label: "Women", icon: CloudLightning },
@@ -47,7 +51,7 @@ function Home() {
   const { productList, productDetails } = useSelector(
     (state) => state.shopProducts
   );
-  // const { featureImageList } = useSelector((state) => state.commonFeature);
+  const { featureImageList } = useSelector((state) => state.commonFeature);
 
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
@@ -92,14 +96,6 @@ function Home() {
     if (productDetails !== null) setOpenDetailsDialog(true);
   }, [productDetails]);
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-  //   }, 5000);
-
-  //   return () => clearInterval(timer);
-  // }, []);
-
   useEffect(() => {
     dispatch(
       fetchAllFilteredProducts({
@@ -109,15 +105,23 @@ function Home() {
     );
   }, [dispatch]);
 
-  console.log(productList, "productList");
+  // console.log(productList, "productList");
 
-  // useEffect(() => {
-  //   dispatch(getFeatureImages());
-  // }, [dispatch]);
-  const slides = [bannerOne, bannerTwo, bannerThree];
+  useEffect(() => {
+    dispatch(getFeatureImages());
+  }, [dispatch]);
+  // console.log("Feature Img: ", featureImageList);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
   return (
     <div className="flex flex-col min-h-screen">
-      {/* <div className="relative w-full h-[600px] overflow-hidden">
+      <div className="relative w-full h-[600px] overflow-hidden">
         {featureImageList && featureImageList.length > 0
           ? featureImageList.map((slide, index) => (
               <img
@@ -146,49 +150,9 @@ function Home() {
         <Button
           variant="outline"
           size="icon"
-          // onClick={() =>
-          //   setCurrentSlide(
-          //     (prevSlide) => (prevSlide + 1) % featureImageList.length
-          //   )
-          // }
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80"
-        >
-          <ChevronRightIcon className="w-4 h-4" />
-        </Button>
-      </div> */}
-      <div className="relative w-full h-[600px] overflow-hidden">
-        {
-          slides.map((slide,index)=>
-            <img src={slide} 
-              key={index}
-              className={`${
-                index === currentSlide ? "opacity-100" : "opacity-0"
-              } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
-                      />
-          )
-        }
-        <Button
-          variant="outline"
-          size="icon"
           onClick={() =>
             setCurrentSlide(
-              (prevSlide) =>
-                (prevSlide - 1 + slides.length) %
-                slides.length
-            )
-          }
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80"
-        >
-          <ChevronLeftIcon className="w-4 h-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() =>
-            setCurrentSlide(
-              (prevSlide) =>
-                (prevSlide + 1) %
-                slides.length
+              (prevSlide) => (prevSlide + 1) % featureImageList.length
             )
           }
           className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80"
@@ -196,6 +160,7 @@ function Home() {
           <ChevronRightIcon className="w-4 h-4" />
         </Button>
       </div>
+
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">
@@ -265,4 +230,4 @@ function Home() {
   );
 }
 
-export default Home
+export default Home;

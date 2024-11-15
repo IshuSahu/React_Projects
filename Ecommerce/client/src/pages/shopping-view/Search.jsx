@@ -16,7 +16,7 @@ function SearchProducts() {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
 
-  const { searchResults, suggestions, isLoading } = useSelector(
+  const { searchResults, isLoading } = useSelector(
     (state) => state.shopSearch
   );
   const { productDetails } = useSelector((state) => state.shopProducts);
@@ -75,22 +75,6 @@ function SearchProducts() {
           onChange={(e) => setKeyword(e.target.value)}
           placeholder="Search products..."
         />
-        {suggestions.length > 0 && (
-          <div className="bg-gray-100 shadow p-4 mt-2">
-            <h4 className="font-bold">Suggestions:</h4>
-            <ul>
-              {suggestions.map((item) => (
-                <li
-                  key={item._id}
-                  className="cursor-pointer hover:underline"
-                  onClick={() => setKeyword(item.title)}
-                >
-                  {item.title}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
 
       {isLoading && <p>Loading...</p>}

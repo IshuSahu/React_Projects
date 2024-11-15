@@ -52,18 +52,66 @@ function OrderDetailsView({ orderDetails }) {
         <div className="grid gap-4">
           <div className="grid gap-2">
             <div className="font-medium">Order Details</div>
-            <ul className="grid gap-3">
+            {/* <ul className="grid gap-3">
               {orderDetails?.cartItems && orderDetails?.cartItems.length > 0
                 ? orderDetails?.cartItems.map((item) => (
                     <li className="flex items-center justify-between">
-                      <span>Title: {item.title}</span>
-                      <span>Quantity: {item.quantity}</span>
-                      <span>Price: ${item.price}</span>
-                      <span>Total price: ${item.price * item.quantity}</span>
+                      <span>{item.title}</span>
+                      <span>{item.quantity}</span>
+                      <span>{item.price}</span>
+                      <span>{item.price * item.quantity}</span>
                     </li>
                   ))
                 : null}
-            </ul>
+            </ul> */}
+            <table className="table-auto border-collapse border border-gray-300 w-full">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-gray-300 px-4 py-2 text-left">
+                    Item
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">
+                    Quantity
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">
+                    Price
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">
+                    Total
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderDetails?.cartItems &&
+                orderDetails?.cartItems.length > 0 ? (
+                  orderDetails?.cartItems.map((item, index) => (
+                    <tr key={index} className="even:bg-gray-50">
+                      <td className="border border-gray-300 px-4 py-2">
+                        {item.title}
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        {item.quantity}
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        ${item.price}
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        ${item.price * item.quantity}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="4"
+                      className="border border-gray-300 px-4 py-2 text-center text-gray-500"
+                    >
+                      No items in the cart.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
         <div className="grid gap-4">

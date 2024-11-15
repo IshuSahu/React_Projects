@@ -86,6 +86,27 @@ function ProductDetails({ open, setOpen, productDetails }) {
         toast({
           title: "Review added successfully!",
         });
+      } else {
+        // Handle specific error messages
+        if (data.payload.status === 403) {
+          toast({
+            title: "Error",
+            description: "You need to purchase product to review it.",
+            variant: "destructive",
+          });
+        } else if (data.payload.status === 400) {
+          toast({
+            title: "Error",
+            description: "You already reviewed this product!",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Error",
+            description: "Something went wrong. Please try again later.",
+            variant: "destructive",
+          });
+        }
       }
     });
   }
@@ -102,33 +123,33 @@ function ProductDetails({ open, setOpen, productDetails }) {
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
-      <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[80vw] sm:max-w-[70vw] lg:max-w-[60vw]">
+      <DialogContent className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 p-6 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
         <div className="relative overflow-hidden rounded-lg">
           <img
             src={productDetails?.image}
             alt={productDetails?.title}
-            width={600}
-            height={600}
-            className="aspect-square w-full object-cover"
+            width={500}
+            height={500}
+            className="w-full object-cover"
           />
         </div>
         <div className="">
           <div>
-            <h1 className="text-3xl font-extrabold">{productDetails?.title}</h1>
-            <p className="text-muted-foreground text-2xl mb-5 mt-4">
+            <h1 className="text-2xl font-extrabold">{productDetails?.title}</h1>
+            <p className="text-muted-foreground text-lg mb-5 mt-4">
               {productDetails?.description}
             </p>
           </div>
           <div className="flex items-center justify-between">
             <p
-              className={`text-3xl font-bold text-primary ${
+              className={`text-xl font-bold text-primary ${
                 productDetails?.salePrice > 0 ? "line-through" : ""
               }`}
             >
               ${productDetails?.price}
             </p>
             {productDetails?.salePrice > 0 ? (
-              <p className="text-2xl font-bold text-muted-foreground">
+              <p className="text-xl font-bold text-muted-foreground">
                 ${productDetails?.salePrice}
               </p>
             ) : null}
@@ -141,7 +162,7 @@ function ProductDetails({ open, setOpen, productDetails }) {
               ({averageReview.toFixed(2)})
             </span>
           </div>
-          <div className="mt-5 mb-5">
+          <div className="mt-2 mb-1">
             {productDetails?.totalStock === 0 ? (
               <Button className="w-full opacity-60 cursor-not-allowed">
                 Out of Stock
@@ -160,6 +181,7 @@ function ProductDetails({ open, setOpen, productDetails }) {
               </Button>
             )}
           </div>
+          {<p className='text-muted-foreground text-sm mb-1'>SKUSAMP123</p> }
           <Separator />
           <div className="max-h-[300px] overflow-auto">
             <h2 className="text-xl font-bold mb-4">Reviews</h2>

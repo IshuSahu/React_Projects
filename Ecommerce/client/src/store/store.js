@@ -11,6 +11,7 @@ import addressSlice from './user/address-slice/index'
 import searchSlice from './user/search-slice/index'
 import shoppingOrderSlice from './user/order-slice/index'
 import shopReviewSlice from "./user/review-slice/index";
+import commonFeatureSlice from './common-slice/index'
 const store = configureStore({
   reducer: {
     auth: authSlice,
@@ -23,6 +24,7 @@ const store = configureStore({
     shopOrder: shoppingOrderSlice,
     shopSearch:searchSlice,
     shopReview: shopReviewSlice,
+    commonFeature: commonFeatureSlice,
   },
 });
 
