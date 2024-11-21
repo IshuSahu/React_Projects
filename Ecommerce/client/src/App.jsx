@@ -22,6 +22,11 @@ import Listing from "./pages/shopping-view/Listing";
 import SearchProducts from "./pages/shopping-view/Search";
 import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
+import Footer from "./components/common/Footer";
+import Help from "./pages/common/Help";
+import Returns from "./pages/common/Returns";
+import Privacy from "./pages/common/Privacy";
+import Terms from "./pages/common/Terms";
 
 export default function App() {
   const { isAuthenticated, user, isLoading } = useSelector(
@@ -89,8 +94,16 @@ export default function App() {
           <Route path="payment-success" element={<PaymentSuccessPage />} />
           <Route path="search" element={<SearchProducts />} />
         </Route>
+        <Route path="/common">
+          {/* Nested Routes */}
+          <Route path="help" element={<Help />} />
+          <Route path="returns" element={<Returns />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="terms" element={<Terms />} />
+        </Route>
         <Route path="/*" element={<Index />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

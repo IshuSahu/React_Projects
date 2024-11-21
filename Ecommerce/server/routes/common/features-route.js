@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.post("/add", addFeatureImage);
 router.get("/get", getFeatureImages);
-// router.get("/delete/:id", delFeatureImages);
+router.post("/delete/:id", delFeatureImages);
 
 module.exports = router;

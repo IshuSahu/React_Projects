@@ -105,10 +105,7 @@ function HeaderRightContent() {
           }
         />
       </Sheet>
-      {/* <Button variant="outline" size="icon">
-        <ShoppingCartIcon className="w-6 h-6" />
-        <span className=" sr-only"> User Cart</span>
-      </Button> */}
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar className="bg-black cursor-pointer">
@@ -142,7 +139,7 @@ function ShoppingHeader() {
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <Link to="/user/home" className="flex items-center gap-2">
           <HousePlug className="h-6 w-6" />
-          <span className="font-bold">Ecommerce</span>
+          <span className="font-bold">ShopEase</span>
         </Link>
         <Sheet>
           <SheetTrigger asChild>

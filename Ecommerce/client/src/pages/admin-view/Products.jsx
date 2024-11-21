@@ -18,6 +18,7 @@ import {
   fetchAllProducts,
 } from "@/store/admin/product-slice";
 import ProductList from "@/components/admin-view/ProductList ";
+import Footer from "@/components/common/Footer";
 
 const initialFormData = {
   image: null,

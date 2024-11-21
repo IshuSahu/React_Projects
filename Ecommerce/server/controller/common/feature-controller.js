@@ -45,6 +45,8 @@ const getFeatureImages = async (req, res) => {
 const delFeatureImages = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(id);
+
     if (!id) {
       return res.status(400).json({
         success: false,
@@ -73,4 +75,4 @@ const delFeatureImages = async (req, res) => {
     });
   }
 };
-module.exports = { addFeatureImage, getFeatureImages };
+module.exports = { addFeatureImage, getFeatureImages, delFeatureImages };
