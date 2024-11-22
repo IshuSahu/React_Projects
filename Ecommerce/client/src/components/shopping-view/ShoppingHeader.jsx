@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import {
   HousePlug,
   LogOut,
@@ -26,7 +31,7 @@ import { logoutUser } from "@/store/auth-slice";
 import { fetchCartItems } from "@/store/user/cart-slice";
 import UserCartWrapper from "./UserCartWrapper";
 
-function MenuItems() {
+function MenuItems({ closeSheet }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -48,6 +53,7 @@ function MenuItems() {
           new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
         )
       : navigate(getCurrentMenuItem.path);
+    closeSheet();
   }
   return (
     <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
@@ -134,6 +140,7 @@ function HeaderRightContent() {
 
 function ShoppingHeader() {
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const [openCartSheet, setOpenCartSheet] = useState(false);
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
@@ -141,7 +148,10 @@ function ShoppingHeader() {
           <HousePlug className="h-6 w-6" />
           <span className="font-bold">ShopEase</span>
         </Link>
-        <Sheet>
+        <Sheet
+          open={openCartSheet}
+          onOpenChange={(open) => setOpenCartSheet(open)}
+        >
           <SheetTrigger asChild>
             <Button variant="outline" size="icon" className="lg:hidden">
               <Menu className="h-6 w-6" />
@@ -150,11 +160,11 @@ function ShoppingHeader() {
           </SheetTrigger>
           <SheetContent side="left" className="w-full max-w-xs">
             <HeaderRightContent />
-            <MenuItems />
+            <MenuItems closeSheet={() => setOpenCartSheet(false)} />
           </SheetContent>
         </Sheet>
         <div className="hidden lg:block">
-          <MenuItems />
+          <MenuItems closeSheet={() => setOpenCartSheet(false)} />
         </div>
 
         <div className="hidden lg:block">

@@ -110,12 +110,17 @@ function Home() {
   // console.log("Feature Img: ", featureImageList);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
-    }, 5000);
+    if (featureImageList && featureImageList.length > 0) {
+      const timer = setInterval(() => {
+        setCurrentSlide(
+          (prevSlide) => (prevSlide + 1) % featureImageList.length
+        );
+      }, 5000);
 
-    return () => clearInterval(timer);
-  }, []);
+      return () => clearInterval(timer); // Cleanup the interval on component unmount or when featureImageList changes
+    }
+  }, [featureImageList]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <div className="relative w-full h-[600px] overflow-hidden">
