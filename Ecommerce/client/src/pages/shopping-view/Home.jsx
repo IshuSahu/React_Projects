@@ -123,7 +123,7 @@ function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="relative w-full h-[600px] overflow-hidden">
+      <div className="relative w-full h-[150px] md:h-[600px] overflow-hidden">
         {featureImageList && featureImageList.length > 0
           ? featureImageList.map((slide, index) => (
               <img
@@ -163,12 +163,12 @@ function Home() {
         </Button>
       </div>
 
-      <section className="py-12 bg-gray-50">
+      <section className=" py-3 md:py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">
+          <h2 className=" text-xl md:text-3xl font-bold text-center mb-8">
             Shop by category
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-3 lg:grid-cols-5 gap-2 md:gap-4">
             {categoriesWithIcon.map((categoryItem) => (
               <Card
                 onClick={() =>
@@ -177,8 +177,8 @@ function Home() {
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="flex flex-col items-center justify-center p-6">
-                  <categoryItem.icon className="w-12 h-12 mb-4 text-primary" />
-                  <span className="font-bold">{categoryItem.label}</span>
+                  <categoryItem.icon className="w-8 h-8 md::w-12 md:h-12 mb-4 text-primary" />
+                  <span className="font-medium md:font-bold text-xs md:text-xl text-center">{categoryItem.label}</span>
                 </CardContent>
               </Card>
             ))}
@@ -186,18 +186,18 @@ function Home() {
         </div>
       </section>
 
-      <section className="py-12 bg-gray-50">
+      <section className="py-3 md:py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Shop by Brand</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <h2 className="text-xl md:text-3xl font-bold text-center mb-8">Shop by Brand</h2>
+          <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
             {brandsWithIcon.map((brandItem) => (
               <Card
                 onClick={() => handleNavigateToListingPage(brandItem, "brand")}
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="flex flex-col items-center justify-center p-6">
-                  <brandItem.icon className="w-12 h-12 mb-4 text-primary" />
-                  <span className="font-bold">{brandItem.label}</span>
+                  <brandItem.icon className="w-8 h-8 md::w-12 md:h-12 mb-4 text-primary" />
+                  <span className="font-medium md:font-bold text-xs md:text-xl text-center">{brandItem.label}</span>
                 </CardContent>
               </Card>
             ))}
@@ -205,12 +205,12 @@ function Home() {
         </div>
       </section>
 
-      <section className="py-12">
+      <section className="py-3 md:py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">
+          <h2 className=" text-xl md:text-3xl font-bold text-center mb-8">
             Feature Products
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {productList && productList.length > 0
               ? productList.map((productItem) => (
                   <ShoppingProductList
