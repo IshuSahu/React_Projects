@@ -4,10 +4,10 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRouter = require("./routes/auth/auth-routes");
-const adminProductRouters = require('./routes/admin/product-routes')
+const adminProductRouters = require("./routes/admin/product-routes");
 const adminOrderRouter = require("./routes/admin/order-routes");
 
-const shopProductRoters  = require('./routes/shop/product-route')
+const shopProductRoters = require("./routes/shop/product-route");
 const shopCartRouter = require("./routes/shop/cart-routes");
 const addressRouter = require("./routes/shop/address-routes");
 const shopSearchRouter = require("./routes/shop/search-routes");
@@ -29,10 +29,13 @@ mongoose
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
   })
   .catch((err) => console.log(`${err} did not connect`));
-// app.use(cors());
+
 app.use(
   cors({
-    origin: "http://127.0.0.1:5173",
+    origin: (origin, callback) => {
+      // Allow all origins
+      callback(null, origin || "*");
+    },
     methods: ["GET", "POST", "DELETE", "PATCH", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -41,7 +44,7 @@ app.use(
       "Expires",
       "Pragma",
     ],
-    credentials: true, // If you're sending cookies or credentials
+    credentials: true, // Allow cookies and credentials
   })
 );
 
@@ -50,7 +53,6 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminProductRouters);
 app.use("/api/admin/orders", adminOrderRouter);
-
 
 app.use("/api/user/products", shopProductRoters);
 app.use("/api/user/cart", shopCartRouter);

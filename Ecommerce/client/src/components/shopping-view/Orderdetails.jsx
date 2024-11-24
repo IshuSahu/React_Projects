@@ -52,18 +52,6 @@ function OrderDetailsView({ orderDetails }) {
         <div className="grid gap-4">
           <div className="grid gap-2">
             <div className="font-medium">Order Details</div>
-            {/* <ul className="grid gap-3">
-              {orderDetails?.cartItems && orderDetails?.cartItems.length > 0
-                ? orderDetails?.cartItems.map((item) => (
-                    <li className="flex items-center justify-between">
-                      <span>{item.title}</span>
-                      <span>{item.quantity}</span>
-                      <span>{item.price}</span>
-                      <span>{item.price * item.quantity}</span>
-                    </li>
-                  ))
-                : null}
-            </ul> */}
             <table className="table-auto border-collapse border border-gray-300 w-full">
               <thead>
                 <tr className="bg-gray-100">

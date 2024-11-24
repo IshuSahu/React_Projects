@@ -27,21 +27,32 @@ import ShoppingProductList from "@/components/shopping-view/ProductList";
 import ProductDetails from "@/components/shopping-view/ProductDetails";
 import { Button } from "@/components/ui/button";
 import { getFeatureImages } from "@/store/common-slice";
+import assy from "../../assets/category/assy.png";
+import footware from "../../assets/category/footware.png";
+import kids from "../../assets/category/kids.png";
+import men from "../../assets/category/men.png";
+import women from "../../assets/category/women.png";
+import nike from "../../assets/brand/nike.png";
+import adidas from "../../assets/brand/adidas.png";
+import puma from "../../assets/brand/puma.png";
+import zara from "../../assets/brand/zara.png";
+import hm from "../../assets/brand/H&M.png";
+import levis from "../../assets/brand/levis.png";
 const categoriesWithIcon = [
-  { id: "men", label: "Men", icon: ShirtIcon },
-  { id: "women", label: "Women", icon: CloudLightning },
-  { id: "kids", label: "Kids", icon: BabyIcon },
-  { id: "accessories", label: "Accessories", icon: WatchIcon },
-  { id: "footwear", label: "Footwear", icon: UmbrellaIcon },
+  { id: "men", label: "Men", icon: ShirtIcon, img: men },
+  { id: "women", label: "Women", icon: CloudLightning, img: women },
+  { id: "kids", label: "Kids", icon: BabyIcon, img: kids },
+  { id: "accessories", label: "Accessories", icon: WatchIcon, img: assy },
+  { id: "footwear", label: "Footwear", icon: UmbrellaIcon, img: footware },
 ];
 
 const brandsWithIcon = [
-  { id: "nike", label: "Nike", icon: Shirt },
-  { id: "adidas", label: "Adidas", icon: WashingMachine },
-  { id: "puma", label: "Puma", icon: ShoppingBasket },
-  { id: "levi", label: "Levi's", icon: Airplay },
-  { id: "zara", label: "Zara", icon: Images },
-  { id: "h&m", label: "H&M", icon: Heater },
+  { id: "nike", label: "Nike", icon: Shirt, img: nike },
+  { id: "adidas", label: "Adidas", icon: WashingMachine, img: adidas },
+  { id: "puma", label: "Puma", icon: ShoppingBasket, img: puma },
+  { id: "levi", label: "Levi's", icon: Airplay, img: levis },
+  { id: "zara", label: "Zara", icon: Images, img: zara },
+  { id: "h&m", label: "H&M", icon: Heater, img: hm },
 ];
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -176,10 +187,17 @@ function Home() {
                 }
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
-                <CardContent className="flex flex-col items-center justify-center p-6">
-                  <categoryItem.icon className="w-8 h-8 md::w-12 md:h-12 mb-4 text-primary" />
-                  <span className="font-medium md:font-bold text-xs md:text-xl text-center">{categoryItem.label}</span>
+                <CardContent className="flex flex-col items-center justify-center p-1">
+                  {/* <categoryItem.icon className="w-8 h-8 md::w-12 md:h-12 mb-4 text-primary" /> */}
+                  <img
+                    src={categoryItem.img}
+                    alt={categoryItem.label || "Category"}
+                    className="w-full h-full object-cover rounded-xl"
+                  />
                 </CardContent>
+                <span className="font-medium md:font-bold text-xs md:text-xl text-center">
+                  {categoryItem.label}
+                </span>
               </Card>
             ))}
           </div>
@@ -188,16 +206,19 @@ function Home() {
 
       <section className="py-3 md:py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-xl md:text-3xl font-bold text-center mb-8">Shop by Brand</h2>
+          <h2 className="text-xl md:text-3xl font-bold text-center mb-8">
+            Shop by Brand
+          </h2>
           <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
             {brandsWithIcon.map((brandItem) => (
               <Card
                 onClick={() => handleNavigateToListingPage(brandItem, "brand")}
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
-                <CardContent className="flex flex-col items-center justify-center p-6">
-                  <brandItem.icon className="w-8 h-8 md::w-12 md:h-12 mb-4 text-primary" />
-                  <span className="font-medium md:font-bold text-xs md:text-xl text-center">{brandItem.label}</span>
+                <CardContent className="flex flex-col items-center justify-center p-1">
+                  {/* <brandItem.icon className="w-8 h-8 md::w-12 md:h-12 mb-4 text-primary" /> */}
+                  {/* <span className="font-medium md:font-bold text-xs md:text-xl text-center">{brandItem.label}</span> */}
+                  <img src={brandItem.img} alt="" srcset="" />
                 </CardContent>
               </Card>
             ))}

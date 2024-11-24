@@ -123,33 +123,30 @@ function ProductDetails({ open, setOpen, productDetails }) {
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
-      <DialogContent className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 p-6 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
-        <div className="relative overflow-hidden rounded-lg">
-          <img
-            src={productDetails?.image}
-            alt={productDetails?.title}
-            width={500}
-            height={500}
-            className="w-full object-cover"
-          />
+      {/* <DialogContent className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 p-2 md:p-6 sm:p-12 max-h-[70vh] max-w-[90vw] md:max-w-[80vw] lg:max-w-[70vw]"> */}
+      <DialogContent className="max-w-[300px] max-h-[90vh] md:max-w-[600px] md:max-h-[100vh] overflow-y-auto">
+        <div className=" flex justify-center">
+          <img src={productDetails?.image} alt={productDetails?.title} />
         </div>
         <div className="">
           <div>
-            <h1 className="text-2xl font-extrabold">{productDetails?.title}</h1>
-            <p className="text-muted-foreground text-lg mb-5 mt-4">
+            <h1 className="text-lg md:text-2xl font-extrabold">
+              {productDetails?.title}
+            </h1>
+            <p className="text-muted-foreground text-sm md:text-lg mb-5 mt-4">
               {productDetails?.description}
             </p>
           </div>
           <div className="flex items-center justify-between">
             <p
-              className={`text-xl font-bold text-primary ${
+              className={`text-sm md:text-xl font-bold text-primary ${
                 productDetails?.salePrice > 0 ? "line-through" : ""
               }`}
             >
               ${productDetails?.price}
             </p>
             {productDetails?.salePrice > 0 ? (
-              <p className="text-xl font-bold text-muted-foreground">
+              <p className="text-sm md:text-xl font-bold text-muted-foreground">
                 ${productDetails?.salePrice}
               </p>
             ) : null}
@@ -181,7 +178,7 @@ function ProductDetails({ open, setOpen, productDetails }) {
               </Button>
             )}
           </div>
-          {<p className='text-muted-foreground text-sm mb-1'>SKUSAMP123</p> }
+          {<p className="text-muted-foreground text-sm mb-1">SKUSAMP123</p>}
           <Separator />
           <div className="max-h-[300px] overflow-auto">
             <h2 className="text-xl font-bold mb-4">Reviews</h2>
