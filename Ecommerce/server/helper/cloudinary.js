@@ -5,9 +5,9 @@ require("dotenv").config();
 // Configuration
 
 cloudinary.config({
-  cloud_name: "dmydqnu8p",
-  api_key: "187843464941464",
-  api_secret: 'XH2Pvki30eT34je32nxBqqhuz_g' // Click 'View API Keys' above to copy your API secret
+  cloud_name: process.env.CLOUDNINARY_CNAME,
+  api_key: process.env.CLOUDNINARY_SKEY,
+  api_secret: process.env.CLOUDNINARY_SCODE, // Click 'View API Keys' above to copy your API secret
 });
 
 const storage = new multer.memoryStorage();

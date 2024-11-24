@@ -1,3 +1,2 @@
 node_modules
 .env
-# git rm -r --cached node_modules then comit and push if not ignore
