@@ -60,7 +60,10 @@ app.use("/api/common/feature", commonFeatureRouter);
 //   res.send("server is running");
 // });
 
-app.listen(PORT, "127.0.0.1", () => {
-  // localhost accupied
+// app.listen(PORT, "127.0.0.1", () => {
+//   // localhost accupied
+//   console.log(`Server is running on port ${PORT}`);
+// });
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
