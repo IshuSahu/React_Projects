@@ -15,7 +15,7 @@ export const getSearchResults = createAsyncThunk(
   async ({ keyword, page = 1 }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:4001/api/user/search/${keyword}?page=${page}&limit=10`
+        `${import.meta.env.VITE_API_URL}/api/user/search/${keyword}?page=${page}&limit=10`
       );
       return response.data;
     } catch (error) {

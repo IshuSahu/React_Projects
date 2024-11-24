@@ -13,7 +13,7 @@ export const createNewOrder = createAsyncThunk(
   "/order/createNewOrder",
   async (orderData) => {
     const response = await axios.post(
-      "http://127.0.0.1:4001/api/user/order/create",
+      `${import.meta.env.VITE_API_URL}/api/user/order/create`,
       orderData
     );
 
@@ -25,7 +25,7 @@ export const capturePayment = createAsyncThunk(
   "/order/capturePayment",
   async ({ paymentId, payerId, orderId }) => {
     const response = await axios.post(
-      "http://127.0.0.1:4001/api/user/order/capture",
+      `${import.meta.env.VITE_API_URL}/api/user/order/capture`,
       {
         paymentId,
         payerId,
@@ -41,7 +41,7 @@ export const getAllOrdersByUserId = createAsyncThunk(
   "/order/getAllOrdersByUserId",
   async (userId) => {
     const response = await axios.get(
-      `http://127.0.0.1:4001/api/user/order/list/${userId}`
+      `${import.meta.env.VITE_API_URL}/api/user/order/list/${userId}`
     );
 
     return response.data;
@@ -52,7 +52,7 @@ export const getOrderDetails = createAsyncThunk(
   "/order/getOrderDetails",
   async (id) => {
     const response = await axios.get(
-      `http://127.0.0.1:4001/api/user/order/details/${id}`
+      `${import.meta.env.VITE_API_URL}/api/user/order/details/${id}`
     );
 
     return response.data;

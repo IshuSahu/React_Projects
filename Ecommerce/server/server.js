@@ -32,10 +32,7 @@ mongoose
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // Allow all origins
-      callback(null, origin || "*");
-    },
+    origin: process.env.BASE_URL,
     methods: ["GET", "POST", "DELETE", "PATCH", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -44,7 +41,7 @@ app.use(
       "Expires",
       "Pragma",
     ],
-    credentials: true, // Allow cookies and credentials
+    credentials: true, // If you're sending cookies or credentials
   })
 );
 
