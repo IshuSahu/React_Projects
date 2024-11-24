@@ -11,7 +11,6 @@ import Products from "./pages/admin-view/Products";
 import Orders from "./pages/admin-view/Orders";
 import Features from "./pages/admin-view/Features";
 import ShoppingLayout from "./components/shopping-view/ShoppingLayout";
-import Index from "./pages/not-found";
 import Home from "./pages/shopping-view/Home";
 import Checkout from "./pages/shopping-view/Checkout";
 import Account from "./pages/shopping-view/Account";
@@ -27,6 +26,7 @@ import Help from "./pages/common/Help";
 import Returns from "./pages/common/Returns";
 import Privacy from "./pages/common/Privacy";
 import Terms from "./pages/common/Terms";
+import Index from "./pages/not-found/Index";
 
 export default function App() {
   const { isAuthenticated, user, isLoading } = useSelector(
