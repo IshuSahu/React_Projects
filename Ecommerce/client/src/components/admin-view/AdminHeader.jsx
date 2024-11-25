@@ -13,6 +13,7 @@ function AdminHeader({ setOpen }) {
     dispatch(resetTokenAndCredentials());
     sessionStorage.clear();
     navigate("/auth/login");
+    
   }
   return (
     <header className=" flex items-center px4 py-2 justify-center border-b bg-background">
