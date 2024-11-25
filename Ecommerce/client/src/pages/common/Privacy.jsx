@@ -1,7 +1,10 @@
+import ShoppingHeader from "@/components/shopping-view/ShoppingHeader";
 import React from "react";
 
 function Privacy() {
   return (
+    <div> 
+        <ShoppingHeader />
     <div className="p-6 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-semibold mb-6">Privacy Policy</h1>
@@ -27,6 +30,7 @@ function Privacy() {
           </a>.
         </p>
       </div>
+    </div>
     </div>
   );
 }
