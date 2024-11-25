@@ -133,21 +133,25 @@ const logoutUser = (req, res) => {
 
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (!token)
+  let token = authHeader && authHeader.split(" ")[1];
+  if (!token) {
     return res.status(401).json({
       success: false,
-      message: "Unauthorised user!",
+      message: "Unauthorized user!",
     });
+  }
+
+  // Remove any extra quotes
+  token = token.replace(/^"|"$/g, ""); // Removes leading/trailing double quotes
 
   try {
     const decoded = jwt.verify(token, process.env.CLIENT_SECRET_KEY);
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json({
+    return res.status(401).json({
       success: false,
-      message: "Unauthorised user!",
+      message: "Unauthorized user!",
     });
   }
 };
