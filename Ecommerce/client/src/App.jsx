@@ -37,9 +37,9 @@ export default function App() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    const token = JSON.stringify(sessionStorage.getItem("token"));
+    const token = sessionStorage.getItem("token");
     const cleanedToken = token.replace(/^"|"$/g, "");
-    console.log(cleanedToken);
+    console.log("Cleaned Token:", cleanedToken);
     dispatch(checkAuth(cleanedToken));
   }, [dispatch]);
 
