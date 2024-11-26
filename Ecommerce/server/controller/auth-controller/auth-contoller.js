@@ -133,27 +133,23 @@ const logoutUser = (req, res) => {
 
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  let token = authHeader && authHeader.split(" ")[1];
+  let token = authHeader && authHeader.split(' ')[1];
+  console.log("Extracted Token:", token); 
+
   if (!token) {
-    return res.status(401).json({
-      success: false,
-      message: "Unauthorized user!",
-    });
+    return res.status(401).json({ success: false, message: "Unauthorized user!" });
   }
 
-  // Remove any extra quotes
-  token = token.replace(/^"|"$/g, ""); // Removes leading/trailing double quotes
-
   try {
+    token = token.replace(/^"|"$/g, ""); // Sanitize token
     const decoded = jwt.verify(token, process.env.CLIENT_SECRET_KEY);
     req.user = decoded;
     next();
   } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: "Unauthorized user!",
-    });
+    console.error("JWT Error:", error.message); // Log the error
+    return res.status(401).json({ success: false, message: "Unauthorized user!" });
   }
 };
+
 
 module.exports = { registerUser, loginUser, logoutUser, authMiddleware };
