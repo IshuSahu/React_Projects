@@ -49,7 +49,7 @@ function Login() {
       <p className="mt-2">
         Don't have an Account
         <Link
-          className="font-medium ml-2 text-primary hover:underline"
+          className="font-bold ml-2 text-primary hover:underline"
           to="/auth/register"
         >
           Register

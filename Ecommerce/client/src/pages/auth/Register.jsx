@@ -14,7 +14,7 @@ const initialState = {
 
 function Register() {
   const [FormData, setFormData] = useState(initialState);
-  console.log(FormData);
+  // console.log(FormData);
   const Dispatch = useDispatch();
   const Navigate = useNavigate();
   const { toast } = useToast();
@@ -48,7 +48,7 @@ function Register() {
       <p className="mt-2">
         Already have an account
         <Link
-          className="font-medium ml-2 text-primary hover:underline"
+          className="font-bold ml-2 text-primary hover:underline"
           to="/auth/login"
         >
           Login
