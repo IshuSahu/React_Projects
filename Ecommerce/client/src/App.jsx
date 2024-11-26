@@ -38,8 +38,9 @@ export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = JSON.stringify(sessionStorage.getItem("token"));
-    console.log(token)
-    dispatch(checkAuth(token));
+    const cleanedToken = token.replace(/^"|"$/g, "");
+    console.log(cleanedToken);
+    dispatch(checkAuth(cleanedToken));
   }, [dispatch]);
 
   if (isLoading) return <div>Loading...</div>;
