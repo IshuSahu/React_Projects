@@ -38,6 +38,7 @@ export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = JSON.stringify(sessionStorage.getItem("token"));
+    console.log(token)
     dispatch(checkAuth(token));
   }, [dispatch]);
 
