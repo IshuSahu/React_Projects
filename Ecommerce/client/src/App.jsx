@@ -38,6 +38,11 @@ export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = sessionStorage.getItem("token");
+
+    if (!token) {
+      console.error("No token found in sessionStorage");
+      return;
+    }
     const cleanedToken = token.replace(/^"|"$/g, "");
     console.log("Cleaned Token:", cleanedToken);
     dispatch(checkAuth(cleanedToken));
