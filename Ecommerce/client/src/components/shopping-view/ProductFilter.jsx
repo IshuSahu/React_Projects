@@ -7,14 +7,14 @@ import { Checkbox } from "../ui/checkbox";
 function ProductFilter({ filters, handleFilter }) {
   return (
     <div className="bg-background rounded-lg shadow-sm">
-      <div className="p-4 border-b">
+      <div className="p-1 md:p-4 border-b">
         <h2 className="text-lg font-extrabold">Filters</h2>
       </div>
-      <div className="md:p-4 md:space-y-4">
+      <div className="grid grid-cols-2 gap-1 p-1 ">
         {Object.keys(filterOptions).map((keyItem) => (
           <Fragment>
             <div>
-              <h3 className="text-base font-bold m-3 md:m-auto">{keyItem}</h3>
+              <h3 className="text-base font-bold m-2 md:m-auto">{keyItem}</h3>
               <div className="grid gap-2 mt-2">
                 {filterOptions[keyItem].map((option) => (
                   <Label className="flex font-medium items-center gap-2 ">

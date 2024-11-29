@@ -60,7 +60,7 @@ export const checkAuth = createAsyncThunk(
 
   async (token) => {
     token = token.replace(/^"|"$/g, "");
-    console.log("store Token: ", token);
+    // console.log("store Token: ", token);
 
     const response = await axios.get(
       `${import.meta.env.VITE_API_URL}/api/auth/check-auth`,

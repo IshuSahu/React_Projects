@@ -166,7 +166,7 @@ function Listing() {
                   <span>Sort by</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[200px]">
+              <DropdownMenuContent align="start" className="w-[200px] z-50">
                 <DropdownMenuRadioGroup value={Sort} onValueChange={handleSort}>
                   {sortOptions.map((sortItem) => (
                     <DropdownMenuRadioItem
@@ -181,7 +181,7 @@ function Listing() {
             </DropdownMenu>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
           {productList && productList.length > 0
             ? productList.map((productItem) => (
                 <ShoppingProductList

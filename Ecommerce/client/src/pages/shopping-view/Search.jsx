@@ -5,7 +5,10 @@ import { Input } from "@/components/ui/input";
 import ShoppingProductList from "@/components/shopping-view/ProductList";
 import ProductDetails from "@/components/shopping-view/ProductDetails";
 import { useToast } from "@/hooks/use-toast";
-import { getSearchResults, resetSearchResults } from "@/store/user/search-slice";
+import {
+  getSearchResults,
+  resetSearchResults,
+} from "@/store/user/search-slice";
 import { addToCart, fetchCartItems } from "@/store/user/cart-slice";
 import { fetchProductDetails } from "@/store/user/product-slice";
 import debounce from "lodash/debounce";
@@ -16,9 +19,7 @@ function SearchProducts() {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
 
-  const { searchResults, isLoading } = useSelector(
-    (state) => state.shopSearch
-  );
+  const { searchResults, isLoading } = useSelector((state) => state.shopSearch);
   const { productDetails } = useSelector((state) => state.shopProducts);
   const { cartItems } = useSelector((state) => state.shopCart);
   const { user } = useSelector((state) => state.auth);
@@ -26,7 +27,7 @@ function SearchProducts() {
 
   useEffect(() => {
     const debouncedSearch = debounce((keyword) => {
-      if (keyword.trim().length > 3) {
+      if (keyword.trim().length >= 1) {
         dispatch(getSearchResults({ keyword, page: 1 }));
         setSearchParams(new URLSearchParams(`?keyword=${keyword}`));
       } else {
@@ -41,7 +42,9 @@ function SearchProducts() {
   }, [keyword]);
 
   const handleAddToCart = (productId, stock) => {
-    const cartItem = cartItems.items?.find((item) => item.productId === productId);
+    const cartItem = cartItems.items?.find(
+      (item) => item.productId === productId
+    );
 
     if (cartItem && cartItem.quantity >= stock) {
       toast({
@@ -51,12 +54,14 @@ function SearchProducts() {
       return;
     }
 
-    dispatch(addToCart({ userId: user?.id, productId, quantity: 1 })).then((data) => {
-      if (data.payload?.success) {
-        dispatch(fetchCartItems(user?.id));
-        toast({ title: "Product added to cart!" });
+    dispatch(addToCart({ userId: user?.id, productId, quantity: 1 })).then(
+      (data) => {
+        if (data.payload?.success) {
+          dispatch(fetchCartItems(user?.id));
+          toast({ title: "Product added to cart!" });
+        }
       }
-    });
+    );
   };
 
   const handleGetProductDetails = (productId) => {

@@ -17,7 +17,7 @@ function Checkout() {
   const dispatch = useDispatch();
   const { toast } = useToast();
 
-  console.log('Logg checks: ',cartItems, currentSelectedAddress);
+  // console.log('Logg checks: ',cartItems, currentSelectedAddress);
 
   const totalCartAmount =
     cartItems && cartItems.items && cartItems.items.length > 0

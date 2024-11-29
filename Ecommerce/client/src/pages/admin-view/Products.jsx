@@ -90,7 +90,7 @@ function Products() {
     });
   }
 
-  // .filter((currentKey) => currentKey !== "averageReview")
+
   function isFormValid() {
     return Object.keys(formData)
       .map((key) => formData[key] !== "")

@@ -9,7 +9,7 @@ function ShoppingProductList({
   handleAddtoCart,
 }) {
   return (
-    <Card className="w-full h-50px max-w-sm mx-auto">
+    <Card className="w-full h-100px max-w-sm mx-auto">
       <div onClick={() => handleGetProductDetails(product?._id)}>
         <div className="relative">
           <img
@@ -35,7 +35,7 @@ function ShoppingProductList({
           <h2 className="text-sm md:text-xl font-bold mb-1 md:mb-2">
             {product?.title}
           </h2>
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex justify-between items-center mb-1 md:mb-2">
             <span className="text-[10px] md:text-[16px] text-muted-foreground">
               {categoryOptionsMap[product?.category]}
             </span>
@@ -43,7 +43,7 @@ function ShoppingProductList({
               {brandOptionsMap[product?.brand]}
             </span>
           </div>
-          <div className="flex justify-between items-center mb-2 text-[10px] md:text-lg">
+          <div className="flex justify-between items-center mb-1 md:mb-2 text-[10px] md:text-lg">
             <span
               className={`${
                 product?.salePrice > 0 ? "line-through" : ""
@@ -59,7 +59,7 @@ function ShoppingProductList({
           </div>
         </CardContent>
       </div>
-      <CardFooter>
+      <CardFooter className="p-1 ml-3 md:p-2 ">
         {product?.totalStock === 0 ? (
           <Button className="w-full opacity-60 cursor-not-allowed">
             Out Of Stock
@@ -67,7 +67,7 @@ function ShoppingProductList({
         ) : (
           <Button
             onClick={() => handleAddtoCart(product?._id, product?.totalStock)}
-            className="w-[80px] h-[20px] md:w-full md:h-full text-[10px] md:text-lg"
+            className=" w-[70px] h-[20px] md:w-full md:h-full text-[10px] md:text-lg"
           >
             Add to cart
           </Button>

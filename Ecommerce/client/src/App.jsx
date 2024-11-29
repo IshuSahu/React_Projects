@@ -38,7 +38,7 @@ export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-    console.log("jsx: ", token);
+    // console.log("jsx: ", token);
     
     dispatch(checkAuth(token));
   }, [dispatch]);
