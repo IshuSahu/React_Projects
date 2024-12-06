@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/ListingCard.scss";
 import {
   ArrowForwardIos,
@@ -8,6 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setWishList } from "../redux/state";
+
 function ListingCard({
   listingId,
   creator,
@@ -23,7 +24,7 @@ function ListingCard({
   endDate,
   totalPrice,
 }) {
-  /*SLIDER FOR IMAGE */
+  /* SLIDER FOR IMAGE */
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const gotoNextSlide = () => {
@@ -49,24 +50,32 @@ function ListingCard({
   const user = useSelector((state) => state.user);
   const wishList = user?.wishList || [];
 
-  const isLiked = wishList?.find((item) => item?._id === listingId);
+  // Compute `isLiked` dynamically from the Redux state
+  const isLiked = wishList.some((item) => item === listingId);
 
   const patchWishList = async () => {
-    if (user?._id !== creator._id) {
+    try {
+      const method = isLiked ? "DELETE" : "PATCH";
       const response = await fetch(
-        `http://localhost:3000/users/${user?._id}/${listingId}`,
+        `http://localhost:3000/users/${user?._id}/wishlist/${listingId}`,
         {
-          method: "PATCH",
+          method: method,
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
-      const data = await response.json();
-      dispatch(setWishList(data.wishList));
-      console.log(data);
-    } else {
-      return;
+
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(setWishList(data.wishList)); // Update Redux store
+        console.log("Wishlist updated:", data.wishList);
+      } else {
+        const error = await response.json();
+        console.error("Error updating wishlist:", error.message);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
     }
   };
 
@@ -100,17 +109,14 @@ function ListingCard({
             </div>
           ))}
         </div>
-        <h3>
-          {city}, {country}
-        </h3>
+        <h3>{city && country ? `${city}, ${country}` : null}</h3>
+
         <p>{category}</p>
 
         {!booking ? (
           <>
             <p>{type}</p>
-            <p>
-              <span>₹{price}</span> per night
-            </p>
+            <p>{price ? <span>₹{price} per night</span> : null}</p>
           </>
         ) : (
           <>
@@ -141,4 +147,5 @@ function ListingCard({
     </div>
   );
 }
+
 export default ListingCard;

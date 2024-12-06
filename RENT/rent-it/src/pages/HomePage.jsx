@@ -12,7 +12,7 @@ function HomePage() {
       <Slide/>
       <Categories/>
       <Listings/>
-      <ListingCard/>
+      {/* <ListingCard/> */}
       <Footer/>
     </>
   );

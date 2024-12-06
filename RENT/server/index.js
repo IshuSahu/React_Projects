@@ -11,7 +11,7 @@ const userRoutes = require('./routes/user.js')
 
 
 
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.urlencoded({ extended: true }));  // For parsing application/x-www-form-urlencoded
