@@ -40,7 +40,7 @@ function ListingCard({
 
   // Function to format the photo path
   const formatPhotoPath = (path) => {
-    return `http://localhost:3000/uploads/${path.split("\\").pop()}`;
+    return `${import.meta.env.VITE_API_URL}/uploads/${path.split("\\").pop()}`;
   };
 
   const navigate = useNavigate();
@@ -49,17 +49,19 @@ function ListingCard({
   /* ADD TO WISHLIST */
   const user = useSelector((state) => state.user);
   const wishList = user?.wishList || [];
-
-  // Compute `isLiked` dynamically from the Redux state
   const isLiked = wishList.some((item) => item === listingId);
 
   const patchWishList = async () => {
+    if (!user) {
+      navigate("/login"); 
+      return;
+    }
     try {
       const method = isLiked ? "DELETE" : "PATCH";
       const response = await fetch(
-        `http://localhost:3000/users/${user?._id}/wishlist/${listingId}`,
+        `${import.meta.env.VITE_API_URL}/users/${user._id}/wishlist/${listingId}`,
         {
-          method: method,
+          method,
           headers: {
             "Content-Type": "application/json",
           },
@@ -95,9 +97,7 @@ function ListingCard({
                 <img
                   src={formatPhotoPath(photo)}
                   alt={`photo ${index + 1}`}
-                  onClick={() => {
-                    navigate(`/properties/${listingId}`);
-                  }}
+                  onClick={() => navigate(`/properties/${listingId}`)}
                 />
               )}
               <div className="prev-button" onClick={gotoPrevSlide}>
@@ -110,9 +110,7 @@ function ListingCard({
           ))}
         </div>
         <h3>{city && country ? `${city}, ${country}` : null}</h3>
-
         <p>{category}</p>
-
         {!booking ? (
           <>
             <p>{type}</p>
@@ -136,7 +134,6 @@ function ListingCard({
           e.stopPropagation();
           patchWishList();
         }}
-        disabled={!user}
       >
         {isLiked ? (
           <Favorite sx={{ color: "red" }} />

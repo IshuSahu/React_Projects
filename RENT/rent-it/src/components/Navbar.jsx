@@ -59,7 +59,7 @@ const Navbar = () => {
             <Person sx={{ color: "var(--darkgrey)" }} />
           ) : (
             <img
-              // src={`http://localhost:3000/${user.profileImagePath.replace(
+              // src={`${import.meta.env.VITE_API_URL}/${user.profileImagePath.replace(
               //   "public",
               //   ""
               // )}`}

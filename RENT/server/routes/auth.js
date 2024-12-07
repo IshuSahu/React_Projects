@@ -68,30 +68,34 @@ router.post("/register", upload.single("profileimg"), async (req, res) => {
 // Login API
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+      const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User does not exist" });
-    }
+      if (!email || !password) {
+          return res.status(400).json({ message: "Email and password are required" });
+      }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
+      const user = await User.findOne({ email });
+      if (!user) {
+          return res.status(400).json({ message: "Invalid email or password" });
+      }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+          return res.status(400).json({ message: "Invalid email or password" });
+      }
 
-    // Remove password from user object
-    const { password: _, ...userWithoutPassword } = user._doc;
+      // Generate JWT token
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+          expiresIn: "1h", // Adjust duration as needed
+      });
 
-    // Respond with user details and token
-    res.status(200).json({ token, user: userWithoutPassword });
+      // Exclude password from response
+      const { password: _, ...userWithoutPassword } = user._doc;
+
+      res.status(200).json({ token, user: userWithoutPassword });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
+      console.error("Login error:", error);
+      res.status(500).json({ message: "Internal server error" });
   }
 });
 

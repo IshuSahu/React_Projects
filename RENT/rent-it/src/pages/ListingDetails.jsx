@@ -20,7 +20,7 @@ const ListingDetails = () => {
   const getListingDetails = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/properties/${listingId}`,
+        `${import.meta.env.VITE_API_URL}/properties/${listingId}`,
         {
           method: "GET",
         }
@@ -42,7 +42,7 @@ const ListingDetails = () => {
 
   // Function to format the photo path
   const formatPhotoPath = (path) => {
-    return `http://localhost:3000/uploads/${path.split("\\").pop()}`;
+    return `${import.meta.env.VITE_API_URL}/uploads/${path.split("\\").pop()}`;
   };
 
   /* BOOKING CALENDAR */
@@ -79,7 +79,7 @@ const ListingDetails = () => {
         totalPrice: listing.price * dayCount,
       };
 
-      const response = await fetch("http://localhost:3000/bookings/create", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/bookings/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +125,7 @@ const ListingDetails = () => {
 
         <div className="profile">
           <img
-            // src={`http://localhost:3000/${listing.creator.profileImg.replace(
+            // src={`${import.meta.env.VITE_API_URL}/${listing.creator.profileImg.replace(
             //   "public",
             //   ""
             // )}`}

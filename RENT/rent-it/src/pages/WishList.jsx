@@ -12,7 +12,7 @@ const WishList = () => {
         const fetchListingDetails = async () => {
             try {
                 console.log("Fetching listings for IDs:", wishList);
-                const response = await fetch("http://localhost:3000/properties/get", {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/get`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

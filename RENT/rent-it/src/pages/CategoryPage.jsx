@@ -18,7 +18,7 @@ const CategoryPage = () => {
   const getFeedListings = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/properties?category=${category}`,
+        `${import.meta.env.VITE_API_URL}/properties?category=${category}`,
         {
           method: "GET",
         }

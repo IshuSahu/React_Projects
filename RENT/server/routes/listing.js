@@ -120,10 +120,12 @@ router.get("/search/:search", async (req, res) => {
         $or: [
           { category: { $regex: search, $options: "i" } },
           { title: { $regex: search, $options: "i" } },
+          { country: { $regex: search, $options: "i" } },
+          { city: { $regex: search, $options: "i" } },
         ],
       }).populate("creator");
     }
-
+    // console.log("Listing: ",listings)
     res.status(200).json(listings);
   } catch (err) {
     res
@@ -146,23 +148,23 @@ router.get("/:listingId", async (req, res) => {
   }
 });
 
-router.post('/get', async (req, res) => {
+router.post("/get", async (req, res) => {
   const { ids } = req.body;
   try {
-      if (!ids || ids.length === 0) {
-          return res.status(400).json({ message: 'No listing IDs provided' });
-      }
+    if (!ids || ids.length === 0) {
+      return res.status(400).json({ message: "No listing IDs provided" });
+    }
 
-      const listings = await Listing.find({ '_id': { $in: ids } });
+    const listings = await Listing.find({ _id: { $in: ids } });
 
-      if (listings.length === 0) {
-          return res.status(404).json({ message: 'No listings found' });
-      }
+    if (listings.length === 0) {
+      return res.status(404).json({ message: "No listings found" });
+    }
 
-      res.json(listings);
+    res.json(listings);
   } catch (error) {
-      console.error("Error fetching listings:", error);
-      res.status(500).json({ message: 'Error fetching listings' });
+    console.error("Error fetching listings:", error);
+    res.status(500).json({ message: "Error fetching listings" });
   }
 });
 

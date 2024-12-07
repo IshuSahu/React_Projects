@@ -132,7 +132,7 @@ const CreateListing = () => {
       }
       
       /* Send a POST request to server */
-      const response = await fetch("http://localhost:3000/properties/create", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/properties/create`, {
         method: "POST",
         body: listingForm,
       });
