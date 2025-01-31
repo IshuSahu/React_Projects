@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../styles/ListingDetails.scss";
+import "../styles/ListingDetails.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { facilities } from "../data";
 
@@ -179,8 +179,8 @@ const ListingDetails = () => {
               )}
 
               <h2>Total price: ₹{listing.price * dayCount}</h2>
-              <p>Start Date: {dateRange[0].startDate.toDateString()}</p>
-              <p>End Date: {dateRange[0].endDate.toDateString()}</p>
+              <p>Check In Time: {dateRange[0].startDate.toDateString()} after 12PM</p>
+              <p>Check Out Time: {dateRange[0].endDate.toDateString()} before 11 AM</p>
 
               <button className="button" type="submit" onClick={handleSubmit}>
                 BOOKING

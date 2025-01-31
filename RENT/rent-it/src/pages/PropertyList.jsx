@@ -1,4 +1,4 @@
-import "../styles/List.scss";
+import "../styles/List.css";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
 import ListingCard from "../components/ListingCard";

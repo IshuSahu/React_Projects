@@ -1,4 +1,5 @@
 import { categories } from "../data";
+// import "../styles/Categories.css"
 import "../styles/Categories.scss"
 import { Link } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 .slide {
-  width: 100vw;
+  width: 98.8vw;
   height: 80vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://images.pexels.com/photos/24913567/pexels-photo-24913567/free-photo-of-sea-star-beau-rivage-hotel-in-egypt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
@@ -9,17 +9,18 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  h1 {
-    padding: 14px 20px;
-    font-size: 80px;
-    text-align: center;
-    color: white;
-  }
-  p {
-    padding: 4px 20px;
-    font-size: 30px;
-    text-align: center;
-    color: white;
-  }
 }
 
+.slide h1 {
+  padding: 14px 20px;
+  font-size: 80px;
+  text-align: center;
+  color: white;
+}
+
+.slide p {
+  padding: 4px 20px;
+  font-size: 30px;
+  text-align: center;
+  color: white;
+}

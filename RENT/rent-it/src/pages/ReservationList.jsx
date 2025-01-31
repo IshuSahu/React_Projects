@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../styles/List.scss";
+import "../styles/List.css";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";

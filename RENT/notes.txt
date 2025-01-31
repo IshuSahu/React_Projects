@@ -1,0 +1,1 @@
+Redux Persist: to manage the persistence of your Redux store data across page reloads or browser sessions

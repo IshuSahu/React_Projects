@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import "../styles/List.scss";
+import "../styles/List.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setListings } from "../redux/state";
 import { useEffect, useState } from "react";

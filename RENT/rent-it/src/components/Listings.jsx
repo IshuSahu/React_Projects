@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { categories } from "../data";
-import "../styles/Listings.scss";
+import "../styles/Listings.css";
 import ListingCard from "./ListingCard";
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";

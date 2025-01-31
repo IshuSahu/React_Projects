@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Login.scss";
+import "../styles/login.css";
 import { setLogin } from "../redux/state";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +60,7 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">LOG IN</button>
+          <button className="buttonStyle" type="submit">LOG IN</button>
         </form>
         <a href="/register">Don't have an account? Sign In Here</a>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import "../styles/Slide.scss"
+import "../styles/Slide.css"
 function Slide() {
     return (
         <div className='slide'>
