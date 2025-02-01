@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setWishList } from "../redux/state";
 
 function ListingCard({
+  index,
   listingId,
   creator,
   listingPhotoPaths,

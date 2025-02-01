@@ -5,8 +5,6 @@ const multer = require("multer");
 const User = require("../models/User");
 const path = require("path");
 const dotenv = require("dotenv").config();
-const { deepEqual } = require("assert");
-
 // Configuration of multer for file upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -81,7 +79,7 @@ router.post("/login", async (req, res) => {
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-          return res.status(400).json({ message: "Invalid email or password" });
+          return res.status(400).json({ message: "Invalid password not match" });
       }
 
       // Generate JWT token

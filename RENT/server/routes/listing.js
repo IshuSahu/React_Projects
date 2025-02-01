@@ -154,7 +154,7 @@ router.post("/get", async (req, res) => {
     if (!ids || ids.length === 0) {
       return res.status(400).json({ message: "No listing IDs provided" });
     }
-
+    // It retrieves multiple listings from the Listing collection where the _id matches any of the values in the ids array.
     const listings = await Listing.find({ _id: { $in: ids } });
 
     if (listings.length === 0) {

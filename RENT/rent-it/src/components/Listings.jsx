@@ -44,7 +44,7 @@ const Listings = () => {
       <div className="category-list">
         {categories?.map((category, index) => (
           <div
-            className={`category ${category.label === selectedCategory ? "selected" : ""}`}
+            className={`categorylist ${category.label === selectedCategory ? "selected" : ""}`}
             key={index}
             onClick={() => setSelectedCategory(category.label)}
           >
@@ -75,6 +75,7 @@ const Listings = () => {
               // passing props
               
               <ListingCard
+                key={index}
                 listingId={_id}
                 creator={creator}
                 listingPhotoPaths={listingPhotoPaths}

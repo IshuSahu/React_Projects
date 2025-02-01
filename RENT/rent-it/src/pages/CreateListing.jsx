@@ -2,7 +2,7 @@ import "../styles/CreateListing.css";
 import Navbar from "../components/Navbar";
 import { categories, types, facilities } from "../data";
 import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
-import "../styles/Navbar.scss";
+import "../styles/Navbar.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { IoIosImages } from "react-icons/io";
 import { useState } from "react";

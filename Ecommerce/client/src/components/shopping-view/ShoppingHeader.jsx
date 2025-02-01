@@ -91,7 +91,7 @@ function HeaderRightContent() {
   // console.log(cartItems);
 
   return (
-    <div className="flex lg:items-center gap-4 sm:mb-5">
+    <div className="flex flex-row-reverse md:flex-row md:items-center gap-4 sm:mb-5">
       <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
         <Button
           onClick={() => setOpenCartSheet(true)}

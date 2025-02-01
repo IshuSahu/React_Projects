@@ -21,7 +21,6 @@ router.get("/:userId/trips", async (req, res) => {
 });
 
 /* ADD LISTING TO WISHLIST */
-// Add listing to wishlist
 router.patch("/:userId/wishlist/:listingId", async (req, res) => {
   const { userId, listingId } = req.params;
 
