@@ -15,7 +15,7 @@ import {
   WatchIcon,
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import {
   fetchAllFilteredProducts,
@@ -84,6 +84,15 @@ function Home() {
   }
 
   function handleAddtoCart(getCurrentProductId) {
+    if (!user) {
+      // if user not logged in, redirect to login
+      navigate("/auth/login");
+      toast({
+        title: "Please login to add products to your cart",
+        variant: "destructive",
+      });
+      return;
+    }
     dispatch(
       addToCart({
         userId: user?.id,

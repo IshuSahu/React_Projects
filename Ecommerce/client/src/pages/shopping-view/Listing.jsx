@@ -19,7 +19,7 @@ import { DropdownMenuContent } from "@radix-ui/react-dropdown-menu";
 import { ArrowUpDownIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 
 function Listing() {
   const dispatch = useDispatch();
@@ -32,12 +32,17 @@ function Listing() {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
   const { cartItems } = useSelector((state) => state.shopCart);
   const { user } = useSelector((state) => state.auth);
-
-  const categorySearchparam = searchParams.get('category')
+  const navigate = useNavigate();
+  const categorySearchparam = searchParams.get("category");
 
   function handleSort(value) {
     setSort(value);
   }
+  useEffect(() => {
+    setSort("price-lowtohigh");
+    const stored = JSON.parse(sessionStorage.getItem("productFilter"));
+    setProductFilter(stored || { category: ["All"] });
+  }, [categorySearchparam]);
 
   function createSearchParam(filterParams) {
     const queryParam = [];
@@ -102,8 +107,17 @@ function Listing() {
     console.log(getCurrentProdId);
     dispatch(fetchProductDetails(getCurrentProdId));
   }
-  
+
   function handleAddtoCart(getCurrentProductId, getTotalStock) {
+    if (!user) {
+      // if user not logged in, redirect to login
+      navigate("/auth/login");
+      toast({
+        title: "Please login to add products to your cart",
+        variant: "destructive",
+      });
+      return;
+    }
     console.log(cartItems);
     let getCartItems = cartItems.items || [];
 
@@ -150,7 +164,9 @@ function Listing() {
       <ProductFilter filters={productFilter} handleFilter={handleFilter} />
       <div className="bg-background w-full rounded-lg shadow-sm">
         <div className="p-4 border-b flex items-center justify-between">
-          <h2 className="text-sm md:text-lg font-bold md:font-extrabold">All Products</h2>
+          <h2 className="text-sm md:text-lg font-bold md:font-extrabold">
+            All Products
+          </h2>
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground">
               {productList?.length} Products

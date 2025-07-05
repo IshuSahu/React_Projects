@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { Button } from "./components/ui/button";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import AuthLayout from "./components/auth/AuthLayout";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -39,7 +39,7 @@ export default function App() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     // console.log("jsx: ", token);
-    
+
     dispatch(checkAuth(token));
   }, [dispatch]);
 
@@ -47,15 +47,7 @@ export default function App() {
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Checkauth
-              isAuthenticated={isAuthenticated}
-              user={user}
-            ></Checkauth>
-          }
-        ></Route>
+        <Route path="/" element={<Navigate to="/user/home" replace />} />
         <Route
           path="/auth"
           element={
@@ -81,21 +73,25 @@ export default function App() {
           <Route path="orders" element={<Orders />} />
           <Route path="features" element={<Features />} />
         </Route>
-        <Route
-          path="/user"
-          element={
-            <Checkauth isAuthenticated={isAuthenticated} user={user}>
-              <ShoppingLayout />
-            </Checkauth>
-          }
-        >
+        <Route path="/user" element={<ShoppingLayout />}>
+          {/* public routes - no auth */}
           <Route path="home" element={<Home />} />
           <Route path="listing" element={<Listing />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="account" element={<Account />} />
-          <Route path="paypal-return" element={<PaypalReturnPage />} />
-          <Route path="payment-success" element={<PaymentSuccessPage />} />
           <Route path="search" element={<SearchProducts />} />
+
+          {/* protected routes - wrapped with Checkauth */}
+          <Route
+            element={
+              <Checkauth isAuthenticated={isAuthenticated} user={user}>
+                <Outlet />
+              </Checkauth>
+            }
+          >
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="account" element={<Account />} />
+            <Route path="paypal-return" element={<PaypalReturnPage />} />
+            <Route path="payment-success" element={<PaymentSuccessPage />} />
+          </Route>
         </Route>
         <Route path="/common">
           {/* Nested Routes */}

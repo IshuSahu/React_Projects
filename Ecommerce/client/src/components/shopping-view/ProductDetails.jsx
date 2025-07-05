@@ -11,6 +11,7 @@ import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { addReview, getReviews } from "@/store/user/review-slice";
 import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function ProductDetails({ open, setOpen, productDetails }) {
   const [reviewMsg, setReviewMsg] = useState("");
@@ -21,12 +22,21 @@ function ProductDetails({ open, setOpen, productDetails }) {
   const { reviews } = useSelector((state) => state.shopReview);
 
   const { toast } = useToast();
-
+  const navigate = useNavigate();
   function handleRatingChange(getRating) {
     setRating(getRating);
   }
 
   function handleAddToCart(getCurrentProductId, getTotalStock) {
+    if (!user) {
+      // if user not logged in, redirect to login
+      navigate("/auth/login");
+      toast({
+        title: "Please login to add products to your cart",
+        variant: "destructive",
+      });
+      return;
+    }
     let getCartItems = cartItems.items || [];
     console.log(getCurrentProductId, getTotalStock);
 

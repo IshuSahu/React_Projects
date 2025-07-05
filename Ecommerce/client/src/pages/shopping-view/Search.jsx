@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import ShoppingProductList from "@/components/shopping-view/ProductList";
 import ProductDetails from "@/components/shopping-view/ProductDetails";
@@ -24,7 +24,7 @@ function SearchProducts() {
   const { cartItems } = useSelector((state) => state.shopCart);
   const { user } = useSelector((state) => state.auth);
   const { toast } = useToast();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const debouncedSearch = debounce((keyword) => {
       if (keyword.trim().length >= 1) {
@@ -42,6 +42,15 @@ function SearchProducts() {
   }, [keyword]);
 
   const handleAddToCart = (productId, stock) => {
+    if (!user) {
+      // if user not logged in, redirect to login
+      navigate("/auth/login");
+      toast({
+        title: "Please login to add products to your cart",
+        variant: "destructive",
+      });
+      return;
+    }
     const cartItem = cartItems.items?.find(
       (item) => item.productId === productId
     );
